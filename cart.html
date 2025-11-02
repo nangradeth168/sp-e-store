@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">SP E-STORE - រទេះទំនិញ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Libraries for PDF and Image generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', 'Kantumruy Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+        }
+        html { scroll-behavior: smooth; }
+        .text-theme-primary { color: #3b82f6; }
+        .bg-theme-primary { background-color: #3b82f6; }
+        .hover\:bg-theme-primary-dark:hover { background-color: #2563eb; }
+        .border-theme-primary { border-color: #3b82f6; }
+        .ring-theme-primary { --tw-ring-color: #3b82f6; }
+        
+        /* Nav link icon alignment */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+        }
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* 16px */
+        }
+
+        /* --- Light Mode Overrides --- */
+        html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
+        html.light nav { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e5e7eb; } /* bg-white/90, border-gray-200 */
+        html.light nav a, html.light nav button.nav-link, html.light nav button#theme-toggle { color: #374151; } /* text-gray-700 */
+        html.light nav a:hover, html.light nav button.nav-link:hover, html.light nav button#theme-toggle:hover { background-color: #f3f4f6; color: #3b82f6; } /* hover:bg-gray-100, hover:text-blue-500 */
+        html.light nav a.bg-blue-600 { background-color: #3b82f6; color: #ffffff; } /* Active nav link */
+        
+        html.light #mobile-menu { background-color: rgba(255, 255, 255, 0.95); }
+        html.light #mobile-menu a, html.light #mobile-menu button { color: #1f2937; } /* text-gray-800 */
+        html.light #mobile-menu a:hover, html.light #mobile-menu button:hover { color: #3b82f6; }
+
+        /* Light mode for cart page */
+        html.light #cart-items-container .bg-gray-800 { 
+            background-color: #ffffff; 
+            color: #374151;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
+            border: 1px solid #e5e7eb;
+        }
+        html.light #cart-items-container h4 { color: #1f2937; }
+        html.light #cart-items-container .text-gray-300 { color: #4b5563; }
+        html.light #cart-items-container .border-gray-700 { border-color: #e5e7eb; }
+        html.light #cart-items-container .bg-gray-700 { background-color: #e5e7eb; color: #374151; }
+        html.light #cart-items-container .hover\:bg-gray-600:hover { background-color: #d1d5db; }
+        html.light #cart-items-container .text-gray-100 { color: #111827; }
+        html.light #cart-summary { background-color: #f9fafb; border: 1px solid #e5e7eb; box-shadow: none; }
+        html.light #empty-cart-message { color: #6b7280; }
+
+        html.light #qrModal .bg-gray-800 { background-color: #ffffff; }
+        html.light #qrModal .text-gray-200 { color: #1f2937; }
+        html.light #qrModal .text-gray-400 { color: #6b7280; }
+
+        html.light footer { background-color: #1f2937; color: #e5e7eb; }
+        html.light footer a { color: #d1d5db; }
+        html.light footer a:hover { color: #ffffff; }
+
+        /* --- Language Dropdown Styles --- */
+        .lang-dropdown-menu {
+            background-color: #1f2937; /* bg-gray-800 */
+            border: 1px solid #374151; /* border-gray-700 */
+        }
+        html.light .lang-dropdown-menu {
+            background-color: #ffffff; /* bg-white */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .lang-dropdown-item {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .lang-dropdown-item:hover {
+            background-color: #374151; /* hover:bg-gray-700 */
+        }
+        html.light .lang-dropdown-item {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .lang-dropdown-item:hover {
+            background-color: #f3f4f6; /* hover:bg-gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+    <!-- Updated Navigation Bar -->
+    <nav class="bg-gray-800/90 backdrop-blur-lg shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <i class="fas fa-store"></i> SP E-STORE
+            </a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="index.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.home">
+                    <i class="fas fa-home w-5 text-center"></i>
+                    <span>ទំព័រដើម</span>
+                </a>
+                <a href="products.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.products">
+                    <i class="fas fa-boxes w-5 text-center"></i>
+                    <span>ផលិតផល</span>
+                </a>
+                <a href="contact.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.contact">
+                    <i class="fas fa-envelope w-5 text-center"></i>
+                    <span>ទំនាក់ទំនង</span>
+                </a>
+                <a href="cart.html" class="nav-link text-white bg-blue-600 font-semibold transition-colors rounded-lg p-2 relative" data-i18n="nav.cart">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
+                    <i class="fas fa-sun text-xl"></i>
+                </button>
+                
+                <!-- Language Dropdown (Desktop) -->
+                <div id="lang-dropdown-desktop" class="relative ml-2">
+                    <button id="lang-toggle-button" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        <img id="lang-toggle-flag" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-6 block rounded-sm">
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-menu" class="lang-dropdown-menu hidden absolute top-full right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="km">
+                            <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                            <span>ខ្មែរ</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="en">
+                            <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                            <span>English</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                            <span>中文</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Updated Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
+            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
+            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
+            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
+            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span> <!-- Added <span> for consistency -->
+        </a>
+        <!-- Mobile Theme Toggle Button -->
+        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
+            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
+        </button>
+        
+        <!-- Language Dropdown (Mobile) -->
+        <div id="lang-dropdown-mobile" class="relative mt-4">
+            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
+                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
+                <span class="text-3xl font-semibold text-gray-200" data-i18n="nav.language">ភាសា</span>
+                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
+            </button>
+            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
+                    <span class="text-lg">ខ្មែរ</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
+                    <span class="text-lg">English</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
+                    <span class="text-lg">中文</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <main>
+        <section id="cart-section" class="py-16 px-4 min-h-screen"> <!-- Removed bg-gray-900, handled by body -->
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-4xl font-bold mb-8 text-center" data-i18n="cart.heading">រទេះទំនិញរបស់អ្នក</h2>
+                <div id="cart-items-container" class="space-y-4">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+                <p id="empty-cart-message" class="text-center text-gray-400 text-lg py-8 hidden" data-i18n="cart.emptyMessage">
+                    មិនទាន់មានទំនិញនៅក្នុងរទេះទេ។ <a href="products.html" class="text-blue-400 font-semibold hover:underline">ទៅទិញទំនិញ</a>
+                </p>
+                <div id="cart-summary" class="mt-8 p-6 bg-gray-800 rounded-xl shadow-lg hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-2xl font-bold" data-i18n="cart.totalPrice">តម្លៃសរុប:</span>
+                        <span id="cart-total" class="text-3xl font-extrabold text-blue-400">0៛</span>
+                    </div>
+                     <div class="text-right mb-6 flex justify-between items-center">
+                        <button id="generate-invoice-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors text-sm">
+                            <i class="fas fa-receipt mr-2"></i> <span data-i18n="cart.generateInvoice">បង្កើតវិក្កយបត្រ</span>
+                        </button>
+                        <button id="currency-toggle-btn" class="bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-full transition-colors text-sm">
+                            <i class="fas fa-exchange-alt mr-2"></i> <span data-i18n="cart.switchToUSD">ប្តូរទៅជា USD</span>
+                        </button>
+                    </div>
+                    <div class="space-y-4 text-center">
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <button id="payment-qr-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto transition-transform hover:scale-105">
+                                <i class="fas fa-qrcode mr-2"></i> <span data-i18n="cart.paymentQR">ទូទាត់តាម QR</span>
+                            </button>
+                            <button id="send-invoice-telegram-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto transition-transform hover:scale-105">
+                                <i class="fab fa-telegram-plane mr-2"></i> <span data-i18n="cart.sendInvoiceToSeller">ផ្ញើវិក្កយបត្រទៅអ្នកលក់</span>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-400 font-semibold pt-4" data-i18n="cart.contactOrder">ឬទំនាក់ទំនងកម្មង់តាមរយៈ</p>
+                        <div class="flex justify-center items-center gap-4 mt-2">
+                            <a href="#" target="_blank" title="Facebook" class="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                            <a href="#" target="_blank" title="Telegram" class="flex items-center justify-center w-12 h-12 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                                <i class="fab fa-telegram-plane text-xl"></i>
+                            </a>
+                            <a href="tel:012345678" title="Call 012 345 678" class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                                <i class="fas fa-phone text-xl"></i>
+                            </a>
+                            <a href="mailto:info@spestore.com" title="Email" class="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-950 text-white py-8 px-4 text-center">
+        <div class="container mx-auto">
+            <p class="mb-4" data-i18n="footer.copyright">&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.privacyPolicy">គោលការណ៍ឯកជនភាព</a>
+                <span class="text-gray-500">|</span>
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.termsOfService">លក្ខខណ្ឌប្រើប្រាស់</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- QR Payment Modal -->
+    <div id="qrModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-[1001] p-4">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-xl text-center relative max-w-sm w-full text-gray-200">
+            <button id="closeQrModal" class="absolute -top-3 -right-3 bg-red-500 text-white rounded-full h-9 w-9 flex items-center justify-center text-xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold mb-2" data-i18n="cart.scanQR">ស្កេនដើម្បីទូទាត់</h3>
+            <p class="text-xl font-bold text-blue-400 mb-4" id="qr-total-amount"></p>
+            <div id="qr-code-container" class="relative w-full max-w-[250px] aspect-square mx-auto">
+                <!-- Replace with your actual QR code images -->
+                <img id="qr-khr" src="https://placehold.co/250x250/fff/333?text=KHQR+(KHR)" alt="KHQR for KHR" class="mx-auto rounded-md border-4 border-gray-600 w-full h-full object-contain">
+                <img id="qr-usd" src="https://placehold.co/250x250/fff/333?text=KHQR+(USD)" alt="KHQR for USD" class="mx-auto rounded-md border-4 border-gray-600 w-full h-full object-contain hidden">
+            </div>
+            <p class="mt-4 text-gray-400" data-i18n="cart.scanNote">សូមស្កេន QR Code នេះដើម្បីធ្វើការទូទាត់។</p>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div id="invoiceModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-[1002] p-4">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-xl relative max-w-2xl w-full max-h-[90vh] flex flex-col">
+            <!-- IMPORTANT: Invoice content MUST be white for PDF/Image generation -->
+            <div id="invoice-content-wrapper" class="bg-white text-gray-900 p-4 border rounded-lg overflow-y-auto">
+                <!-- Invoice content will be generated here -->
+            </div>
+            <div class="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                 <button id="closeInvoiceModal" class="bg-gray-600 hover:bg-gray-500 text-gray-200 font-bold py-2 px-4 rounded-full w-full sm:w-auto">
+                    <i class="fas fa-times mr-2"></i> <span data-i18n="invoice.close">Close</span>
+                </button>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button id="download-img-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full sm:w-auto">
+                        <i class="fas fa-image mr-2"></i> <span data-i18n="invoice.downloadImage">Download Image</span>
+                    </button>
+                    <button id="download-pdf-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full sm:w-auto">
+                        <i class="fas fa-file-pdf mr-2"></i> <span data-i18n="invoice.downloadPDF">Download PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updated JavaScript Section -->
+    <script>
+        // Merged and Updated translations object
+        const translations = {
+            km: {
+                lang: { flag: 'https://flagcdn.com/w40/kh.png' },
+                pageTitle: 'SP E-STORE - រទេះទំនិញ',
+                nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
+                cart: { 
+                    heading: '🛒រទេះទំនិញអ្នក🛍️', 
+                    emptyMessage: 'មិនទាន់មានទំនិញនៅក្នុងរទេះទេ។', 
+                    totalPrice: 'តម្លៃសរុប:', 
+                    contactOrder: 'ឬទំនាក់ទំនងកម្មង់តាមរយៈ', 
+                    paymentQR: 'ទូទាត់តាម QR', 
+                    scanQR: 'ស្កេនដើម្បីទូទាត់', 
+                    scanNote: 'សូមស្កេន QR Code នេះដើម្បីធ្វើការទូទាត់។', 
+                    switchToUSD: 'ប្តូរទៅជា ដុល្លា', 
+                    switchToKHR: 'ប្តូរទៅជា រៀល', 
+                    sendInvoiceToSeller: 'ផ្ញើវិក្កយបត្រទៅអ្នកលក់',
+                    generateInvoice: 'បង្កើតវិក្កយបត្រ',
+                    telegramThankYou: 'សូមជួយរៀបចំការកម្ម៉ង់នេះផង។ សូមអរគុណ! 🙏'
+                },
+                invoice: {
+                    title: 'វិក្កយបត្រ',
+                    invoice_no: 'លេខវិក្កយបត្រ',
+                    date: 'កាលបរិច្ឆេទ',
+                    item: 'មុខទំនិញ',
+                    qty: 'ចំនួន',
+                    price: 'តម្លៃ',
+                    total: 'សរុប',
+                    subtotal: 'សរុប',
+                    tax: 'ពន្ធ (0%)',
+                    thank_you: 'សូមអរគុណសម្រាប់ការទិញ!',
+                    close: 'បិទ',
+                    downloadPDF: 'ទាញយក PDF',
+                    downloadImage: 'ទាញយករូបភាព'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។', privacyPolicy: 'គោលការណ៍ឯកជនភាព', termsOfService: 'លក្ខខណ្ឌប្រើប្រាស់' }
+            },
+            en: {
+                lang: { flag: 'https://flagcdn.com/w40/us.png' },
+                pageTitle: 'SP E-STORE - Cart',
+                nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
+                cart: { 
+                    heading: '🛒Your Cart🛍️', 
+                    emptyMessage: 'No items in the cart yet.', 
+                    totalPrice: 'Total Price:', 
+                    contactOrder: 'Or contact to order via', 
+                    paymentQR: 'Pay with QR', 
+                    scanQR: 'Scan to Pay', 
+                    scanNote: 'Please scan this QR code to make a payment.', 
+                    switchToUSD: 'Switch to USD', 
+                    switchToKHR: 'Switch to KHR', 
+                    sendInvoiceToSeller: 'Send Invoice to Seller',
+                    generateInvoice: 'Generate Invoice',
+                    telegramThankYou: 'Please prepare this order. Thank you! 🙏'
+                },
+                invoice: {
+                    title: 'Invoice',
+                    invoice_no: 'Invoice No.',
+                    date: 'Date',
+                    item: 'Item',
+                    qty: 'Qty',
+                    price: 'Unit Price',
+                    total: 'Total',
+                    subtotal: 'Subtotal',
+                    tax: 'Tax (0%)',
+                    thank_you: 'Thank you for your purchase!',
+                    close: 'Close',
+                    downloadPDF: 'Download PDF',
+                    downloadImage: 'Download Image'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
+            },
+            zh: { // Added Chinese translations for cart/invoice
+                lang: { flag: 'https://flagcdn.com/w40/cn.png' },
+                pageTitle: 'SP E-STORE - 购物车',
+                nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
+                cart: {
+                    heading: '🛒您的购物车🛍️',
+                    emptyMessage: '购物车中还没有物品。',
+                    totalPrice: '总价:',
+                    contactOrder: '或通过以下方式联系订购',
+                    paymentQR: 'QR 码支付',
+                    scanQR: '扫码支付',
+                    scanNote: '请扫描此二维码付款。',
+                    switchToUSD: '切换到 USD',
+                    switchToKHR: '切换到 KHR',
+                    sendInvoiceToSeller: '发送发票给卖家',
+                    generateInvoice: '生成发票',
+                    telegramThankYou: '请准备此订单。 谢谢！ 🙏'
+                },
+                invoice: {
+                    title: '发票',
+                    invoice_no: '发票号码',
+                    date: '日期',
+                    item: '项目',
+                    qty: '数量',
+                    price: '单价',
+                    total: '总计',
+                    subtotal: '小计',
+                    tax: '税 (0%)',
+                    thank_you: '感谢您的购买！',
+                    close: '关闭',
+                    downloadPDF: '下载 PDF',
+                    downloadImage: '下载图片'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE。 版权所有。', privacyPolicy: '隐私政策', termsOfService: '服务条款' }
+            }
+        };
+        
+        let currentLang = localStorage.getItem('language') || 'km';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCurrency = 'khr'; // 'khr' or 'usd'
+        const KHR_TO_USD_RATE = 4000; // Standard rate for conversion
+
+        // --- TRANSLATION & UTILITIES ---
+        function getTranslation(key, lang = currentLang) {
+            const nestedKey = key.split('.');
+            let text = translations[lang];
+            for (const k of nestedKey) {
+                text = text?.[k];
+            }
+            return text || key;
+        }
+        
+        // NEW setLanguage function (from products.html)
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang;
+            
+            // Update all text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const text = getTranslation(key, lang);
+                
+                if (text) {
+                    const icon = el.querySelector('i');
+                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
+                        const textNode = el.querySelector('span');
+                        if (textNode) {
+                            textNode.textContent = text;
+                        }
+                    } else if (el.id === 'cart-count') {
+                        // Don't change cart count
+                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.id === 'lang-toggle-button-mobile')) {
+                         el.textContent = text;
+                    }
+                    else {
+                        el.innerHTML = text; // Default case
+                    }
+                }
+            });
+
+            // Update title
+            document.querySelector('title').textContent = getTranslation('pageTitle', lang);
+            
+            // Update language switcher
+            updateLanguageSwitcher();
+            
+            // Re-render cart with new language
+            updateCartDisplay(); 
+        }
+
+        // NEW updateLanguageSwitcher function (from products.html)
+        function updateLanguageSwitcher() {
+            const currentLangData = translations[currentLang];
+            if (!currentLangData) return;
+
+            // Update toggle button flags
+            document.getElementById('lang-toggle-flag').src = currentLangData.lang.flag;
+            document.getElementById('lang-toggle-flag-mobile').src = currentLangData.lang.flag;
+
+            // Update mobile toggle button text
+            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
+            if (mobileLangText) {
+                mobileLangText.textContent = currentLangData.nav.language;
+            }
+
+            // Show/hide items in dropdowns
+            document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('hidden'); // Hide selected language
+                } else {
+                    btn.classList.remove('hidden');
+                }
+            });
+        }
+        
+        function formatPrice(khrValue) {
+            if (currentCurrency === 'usd') {
+                const usdValue = (khrValue / KHR_TO_USD_RATE).toFixed(2);
+                return `$${usdValue}`;
+            } else { 
+                return `${Math.round(khrValue).toLocaleString('km-KH')}៛`;
+            }
+        }
+
+        // --- CART LOGIC ---
+        function updateCart(productId, action) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex === -1) return;
+
+            if (action === 'increase') {
+                cart[itemIndex].quantity++;
+            } else if (action === 'decrease') {
+                cart[itemIndex].quantity--;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            } else if (action === 'remove') {
+                cart.splice(itemIndex, 1);
+            }
+            saveCart();
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        function updateCartCount() {
+            const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+                cartCountElement.textContent = totalQuantity;
+            }
+        }
+        
+        function updateCartDisplay() {
+            const container = document.getElementById('cart-items-container');
+            const summary = document.getElementById('cart-summary');
+            const emptyMsg = document.getElementById('empty-cart-message');
+            const totalEl = document.getElementById('cart-total');
+            
+            if (!container || !summary || !emptyMsg || !totalEl) return;
+            
+            cart = JSON.parse(localStorage.getItem('cart')) || [];
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                summary.classList.add('hidden');
+                emptyMsg.classList.remove('hidden');
+            } else {
+                summary.classList.remove('hidden');
+                emptyMsg.classList.add('hidden');
+                
+                let totalKhr = 0;
+                cart.forEach(item => {
+                    totalKhr += item.price * item.quantity;
+                    const itemTotalDisplay = formatPrice(item.price * item.quantity);
+                    const itemName = (item.name && item.name[currentLang]) || (item.name && item.name['km']) || 'Product'; // Added fallback
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-700';
+                    itemEl.innerHTML = `
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <img src="${item.img}" alt="${itemName}" class="w-16 h-16 object-cover rounded-lg border border-gray-600 flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/100x100/374151/e5e7eb?text=Error';">
+                                <div class="min-w-0">
+                                    <h4 class="font-semibold text-gray-100 truncate">${itemName}</h4>
+                                    <p class="text-gray-300 font-bold text-sm sm:hidden">Total: <span class="text-blue-400">${itemTotalDisplay}</span></p>
+                                </div>
+                            </div>
+                            <div class="text-right flex-shrink-0 hidden sm:block">
+                                <p class="font-extrabold text-blue-400 text-lg">${itemTotalDisplay}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-700">
+                             <button onclick="updateCart(${item.id}, 'remove')" class="text-red-500 hover:text-red-400 font-semibold transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-700">
+                                <i class="fas fa-trash-alt text-lg"></i>
+                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="updateCart(${item.id}, 'decrease')" class="bg-gray-700 hover:bg-gray-600 text-gray-200 w-9 h-9 rounded-full font-bold text-xl flex items-center justify-center transition-transform hover:scale-110">-</button>
+                                <span class="w-10 text-center font-bold text-xl text-gray-100">${item.quantity}</span>
+                                <button onclick="updateCart(${item.id}, 'increase')" class="bg-gray-700 hover:bg-gray-600 text-gray-200 w-9 h-9 rounded-full font-bold text-xl flex items-center justify-center transition-transform hover:scale-110">+</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(itemEl);
+                });
+                totalEl.textContent = formatPrice(totalKhr);
+
+                const currencyBtnText = document.querySelector('#currency-toggle-btn span');
+                if (currencyBtnText) {
+                    currencyBtnText.innerHTML = (currentCurrency === 'khr') ? getTranslation('cart.switchToUSD') : getTranslation('cart.switchToKHR');
+                }
+            }
+        }
+
+        // --- UI Interactions ---
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        function sendInvoiceToTelegram() {
+            if (cart.length === 0) return;
+
+            const telegramUsername = 'spestore_user'; // Replace with your Telegram username
+            const invoiceNo = `INV-${Date.now().toString().slice(-6)}`;
+            const date = new Date().toLocaleDateString('sv-SE');
+            let totalKhr = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            const t = (key) => getTranslation(key, currentLang);
+            const invoiceTitle = t('invoice.title');
+            const invoiceNoLabel = t('invoice.invoice_no');
+            const dateLabel = t('invoice.date');
+            const totalLabel = t('invoice.total');
+            const thankYou = t('cart.telegramThankYou');
+
+            let message = `🧾 *${invoiceTitle}* 🧾\n\n`;
+            message += `*${invoiceNoLabel}:* ${invoiceNo}\n`;
+            message += `*${dateLabel}:* ${date}\n`;
+            message += `--------------------------------------\n`;
+            
+            cart.forEach(item => {
+                const itemName = (item.name && item.name[currentLang]) || (item.name && item.name['km']) || 'Product'; 
+                const itemPriceFormatted = formatPrice(item.price);
+                const itemTotalFormatted = formatPrice(item.price * item.quantity);
+
+                message += `*${itemName}*\n`;
+                message += `      ${item.quantity} x ${itemPriceFormatted} = ${itemTotalFormatted}\n`;
+            });
+
+            message += `--------------------------------------\n`;
+            const totalFormatted = formatPrice(totalKhr);
+            message += `*${totalLabel}:* *${totalFormatted}*\n\n`;
+            message += `${thankYou}`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://t.me/${telegramUsername}?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+
+        function generateInvoiceHTML() {
+            if (cart.length === 0) return '';
+            const invoiceNo = `INV-${Date.now().toString().slice(-6)}`;
+            const date = new Date().toLocaleDateString('sv-SE');
+            let totalKhr = 0;
+            const useUSD = currentCurrency === 'usd';
+
+            let itemsHtml = cart.map(item => {
+                const itemTotalKhr = item.price * item.quantity;
+                totalKhr += itemTotalKhr;
+                const itemName = (item.name && item.name[currentLang]) || (item.name && item.name['km']) || 'Product';
+                
+                const itemPriceDisplay = formatPrice(item.price);
+                const itemTotalDisplay = formatPrice(itemTotalKhr);
+                
+                return `
+                    <tr class="border-b border-gray-200">
+                        <td class="py-2 pr-2">${itemName}</td>
+                        <td class="py-2 px-2 text-center">${item.quantity}</td>
+                        <td class="py-2 px-2 text-right">${itemPriceDisplay}</td>
+                        <td class="py-2 pl-2 text-right font-bold">${itemTotalDisplay}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const subtotalDisplay = formatPrice(totalKhr);
+            const taxDisplay = useUSD ? `$0.00` : `0៛`;
+            const totalDisplay = formatPrice(totalKhr);
+
+            return `
+                <div class="p-4 sm:p-6 bg-white text-gray-800 font-sans" style="font-family: 'Kantumruy Pro', sans-serif;">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-blue-600"><i class="fas fa-store"></i> SP E-STORE</h2>
+                        <p class="text-2xl font-bold mt-2" data-i18n="invoice.title">${getTranslation('invoice.title')}</p>
+                    </div>
+                    <div class="flex justify-between mb-6 text-gray-600 text-sm">
+                        <div>
+                            <p><strong>${getTranslation('invoice.invoice_no')}:</strong></p>
+                            <p>${invoiceNo}</p>
+                        </div>
+                        <div class="text-right">
+                            <p><strong>${getTranslation('invoice.date')}:</strong></p>
+                            <p>${date}</p>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm sm:text-base">
+                            <thead>
+                                <tr class="border-b-2 border-gray-300 text-gray-500">
+                                    <th class="py-2 pr-2 text-left font-semibold">${getTranslation('invoice.item')}</th>
+                                    <th class="py-2 px-2 text-center font-semibold">${getTranslation('invoice.qty')}</th>
+                                    <th class="py-2 px-2 text-right font-semibold">${getTranslation('invoice.price')}</th>
+                                    <th class="py-2 pl-2 text-right font-semibold">${getTranslation('invoice.total')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>${itemsHtml}</tbody>
+                        </table>
+                    </div>
+                    <div class="mt-8 flex justify-end">
+                        <div class="w-full sm:w-2/3 md:w-1/2 space-y-2 text-gray-700">
+                            <div class="flex justify-between">
+                                <span>${getTranslation('invoice.subtotal')}:</span>
+                                <span>${subtotalDisplay}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>${getTranslation('invoice.tax')}:</span>
+                                <span>${taxDisplay}</span>
+                            </div>
+                            <div class="flex justify-between text-xl font-bold text-blue-600 border-t-2 border-dashed pt-2 mt-2">
+                                <span>${getTranslation('invoice.total')}:</span>
+                                <span>${totalDisplay}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8 text-gray-500 text-sm">
+                        <p>${getTranslation('invoice.thank_you')}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // --- NEW: Theme Toggle Logic ---
+        function setTheme(theme) {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const htmlEl = document.documentElement;
+            const mobileIcon = themeToggleMobile.querySelector('i');
+
+            if (theme === 'light') {
+                htmlEl.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
+                if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
+            } else {
+                htmlEl.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
+                if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu Listeners ---
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('#mobile-menu a:not(#lang-toggle-button-mobile)').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+            
+            // --- NEW: Language Dropdown Listeners ---
+            const langToggleButton = document.getElementById('lang-toggle-button');
+            const langDropdownMenu = document.getElementById('lang-dropdown-menu');
+            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
+            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+
+            if(langToggleButton) {
+                langToggleButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langDropdownMenu.classList.toggle('hidden');
+                });
+            }
+            if(langToggleButtonMobile) {
+                langToggleButtonMobile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langDropdownMenuMobile.classList.toggle('hidden');
+                });
+            }
+
+            document.querySelectorAll('.lang-dropdown-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    setLanguage(button.dataset.lang);
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (langDropdownMenu && langToggleButton && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                    langDropdownMenu.classList.add('hidden');
+                }
+                if (langDropdownMenuMobile && langToggleButtonMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
+                    langDropdownMenuMobile.classList.add('hidden');
+                }
+            });
+
+            // --- NEW: Theme Toggle Listeners ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
+            if(themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+                    setTheme(newTheme);
+                });
+            }
+            if(themeToggleMobile) {
+                themeToggleMobile.addEventListener('click', () => {
+                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+                    setTheme(newTheme);
+                });
+            }
+
+            // --- Cart-Specific Listeners ---
+            const cartSummary = document.getElementById('cart-summary');
+            if (cartSummary.classList.contains('hidden') && cart.length > 0) {
+                 // Check if summary is hidden but cart has items
+                 cartSummary.classList.remove('hidden');
+                 document.getElementById('empty-cart-message').classList.add('hidden');
+            }
+            
+            if (!cartSummary.classList.contains('hidden')) {
+                document.getElementById('send-invoice-telegram-btn').addEventListener('click', sendInvoiceToTelegram);
+                document.getElementById('currency-toggle-btn').addEventListener('click', () => {
+                    currentCurrency = (currentCurrency === 'khr') ? 'usd' : 'khr';
+                    updateCartDisplay();
+                });
+
+                const qrModal = document.getElementById('qrModal');
+                document.getElementById('payment-qr-btn').addEventListener('click', () => {
+                    const totalKhr = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                    document.getElementById('qr-total-amount').textContent = formatPrice(totalKhr);
+                    document.getElementById('qr-khr').classList.toggle('hidden', currentCurrency !== 'khr');
+                    document.getElementById('qr-usd').classList.toggle('hidden', currentCurrency !== 'usd');
+                    qrModal.style.display = 'flex';
+                });
+                document.getElementById('closeQrModal').addEventListener('click', () => qrModal.style.display = 'none');
+                qrModal.addEventListener('click', (e) => { if (e.target === qrModal) qrModal.style.display = 'none'; });
+                
+                const invoiceModal = document.getElementById('invoiceModal');
+                const invoiceContentWrapper = document.getElementById('invoice-content-wrapper');
+                
+                document.getElementById('generate-invoice-btn').addEventListener('click', () => {
+                    invoiceContentWrapper.innerHTML = generateInvoiceHTML();
+                    if (invoiceContentWrapper.innerHTML) {
+                        invoiceModal.style.display = 'flex';
+                    }
+                });
+
+                document.getElementById('closeInvoiceModal').addEventListener('click', () => {
+                    invoiceModal.style.display = 'none';
+                });
+                invoiceModal.addEventListener('click', (e) => {
+                    if (e.target === invoiceModal) invoiceModal.style.display = 'none';
+                });
+
+                document.getElementById('download-img-btn').addEventListener('click', () => {
+                    html2canvas(invoiceContentWrapper.querySelector('div'), { scale: 2 }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `invoice-SP-ESTORE-${Date.now()}.png`;
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    });
+                });
+
+                document.getElementById('download-pdf-btn').addEventListener('click', () => {
+                    const { jsPDF } = window.jspdf;
+                    const invoiceElement = invoiceContentWrapper.querySelector('div');
+
+                    html2canvas(invoiceElement, { scale: 2, useCORS: true }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF({
+                            orientation: 'portrait',
+                            unit: 'pt',
+                            format: 'a4'
+                        });
+                        const imgProps = pdf.getImageProperties(imgData);
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                        pdf.save(`invoice-SP-ESTORE-${Date.now()}.pdf`);
+                    });
+                });
+            }
+
+            // --- Initial Load ---
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme); // Set theme first
+            setLanguage(currentLang); // This calls updateCartDisplay
+            updateCartCount(); // Ensure count is correct
+        });
+        
+        // Make cart functions globally accessible
+        window.updateCart = updateCart;
+    </script>
+</body>
+</html>

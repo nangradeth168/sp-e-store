@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP E-STORE - ទំព័រដើម</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Kantumruy Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Updated Tech Theme Colors (Dark Mode) */
+        .text-theme-primary { color: #3b82f6; } /* Blue-500 */
+        .bg-theme-primary { background-color: #3b82f6; }
+        .hover\:bg-theme-primary-dark:hover { background-color: #2563eb; } /* Blue-600 */
+        .border-theme-primary { border-color: #3b82f6; }
+        .ring-theme-primary { --tw-ring-color: #3b82f6; }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% { transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+            0% { opacity: 0; transform: scale3d(0.3, 0.3, 0.3); }
+            20% { transform: scale3d(1.1, 1.1, 1.1); }
+            40% { transform: scale3d(0.9, 0.9, 0.9); }
+            60% { opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+            80% { transform: scale3d(0.97, 0.97, 0.97); }
+            100% { opacity: 1; transform: scale3d(1, 1, 1); }
+        }
+        .animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; animation-delay: 0.3s; }
+        .animate-bounce-in { animation: bounceIn 1s ease-out forwards; animation-delay: 0.6s; }
+        
+        /* Nav link icon alignment */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+        }
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* 16px */
+        }
+        
+        /* --- Light Mode Overrides --- */
+        html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
+        html.light nav { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e5e7eb; } /* bg-white/90, border-gray-200 */
+        html.light nav a, html.light nav button.nav-link, html.light nav button#theme-toggle { color: #374151; } /* text-gray-700 */
+        html.light nav a:hover, html.light nav button.nav-link:hover, html.light nav button#theme-toggle:hover { background-color: #f3f4f6; color: #3b82f6; } /* hover:bg-gray-100, hover:text-blue-500 */
+        html.light nav a.bg-blue-600 { background-color: #3b82f6; color: #ffffff; } /* Active nav link */
+        
+        html.light #mobile-menu { background-color: rgba(255, 255, 255, 0.95); }
+        html.light #mobile-menu a, html.light #mobile-menu button { color: #1f2937; } /* text-gray-800 */
+        html.light #mobile-menu a:hover, html.light #mobile-menu button:hover { color: #3b82f6; }
+        
+        html.light #home h1, html.light #home p { text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
+        
+        html.light #about-us { background-color: #f9fafb; color: #111827; }
+        html.light #about-us h2 { color: #111827; }
+        html.light #about-us .feature-card { 
+            background-color: #ffffff; 
+            color: #374151; /* text-gray-700 */
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); 
+            border: 1px solid #e5e7eb;
+        }
+        html.light #about-us .feature-card h3 { color: #1f2937; } /* text-gray-800 */
+        
+        html.light footer { background-color: #1f2937; color: #e5e7eb; } /* bg-gray-800, text-gray-200 */
+        html.light footer a { color: #d1d5db; } /* text-gray-300 */
+        html.light footer a:hover { color: #ffffff; }
+
+        /* --- Language Dropdown Styles --- */
+        .lang-dropdown-menu {
+            background-color: #1f2937; /* bg-gray-800 */
+            border: 1px solid #374151; /* border-gray-700 */
+        }
+        html.light .lang-dropdown-menu {
+            background-color: #ffffff; /* bg-white */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .lang-dropdown-item {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .lang-dropdown-item:hover {
+            background-color: #374151; /* hover:bg-gray-700 */
+        }
+        html.light .lang-dropdown-item {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .lang-dropdown-item:hover {
+            background-color: #f3f4f6; /* hover:bg-gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+    <nav class="bg-gray-800/90 backdrop-blur-lg shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <i class="fas fa-store"></i> SP E-STORE
+            </a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="index.html" class="nav-link text-white bg-blue-600 font-semibold transition-colors rounded-lg py-2 px-3" data-i18n="nav.home">
+                    <i class="fas fa-home w-5 text-center"></i>
+                    <span>ទំព័រដើម</span>
+                </a>
+                <a href="products.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.products">
+                    <i class="fas fa-boxes w-5 text-center"></i>
+                    <span>ផលិតផល</span>
+                </a>
+                <a href="contact.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.contact">
+                    <i class="fas fa-envelope w-5 text-center"></i>
+                    <span>ទំនាក់ទំនង</span>
+                </a>
+                <a href="cart.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
+                    <i class="fas fa-sun text-xl"></i>
+                </button>
+                
+                <!-- Language Dropdown (Desktop) -->
+                <div id="lang-dropdown-desktop" class="relative ml-2">
+                    <button id="lang-toggle-button" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        <img id="lang-toggle-flag" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-6 block rounded-sm">
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-menu" class="lang-dropdown-menu hidden absolute top-full right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="km">
+                            <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                            <span>ខ្មែរ</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="en">
+                            <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                            <span>English</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                            <span>中文</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
+            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
+            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
+            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
+            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span>
+        </a>
+        <!-- Mobile Theme Toggle Button -->
+        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
+            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
+        </button>
+        
+        <!-- Language Dropdown (Mobile) -->
+        <div id="lang-dropdown-mobile" class="relative mt-4">
+            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
+                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
+                <span class="text-3xl font-semibold text-gray-200">ភាសា</span>
+                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
+            </button>
+            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
+                    <span class="text-lg">ខ្មែរ</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
+                    <span class="text-lg">English</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
+                    <span class="text-lg">中文</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <main>
+        <!-- Hero Section with Video Background -->
+        <section id="home" class="relative text-white py-24 px-4 overflow-hidden min-h-[calc(100vh-80px)] flex items-center justify-center">
+            <!-- Video Background -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+                <source src="Video/Video 1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <!-- Overlay for better text readability -->
+            <div class="absolute inset-0 bg-black/60 z-10"></div>
+            
+            <!-- Hero Content -->
+            <div class="container mx-auto text-center relative z-20">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-down" data-i18n="hero.title" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.4);">
+                    សូមស្វាគមន៍មកកាន់ SP E-STORE
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up" data-i18n="hero.subtitle">
+                    ហាងលក់គ្រឿងអេឡិចត្រូនិកទំនើប ឈានមុខគេ ផ្ដល់ជូនគុណភាព និងតម្លៃដ៏ល្អបំផុត។
+                </p>
+                <a href="products.html" class="bg-blue-500 text-white hover:bg-blue-600 font-bold py-4 px-10 rounded-full shadow-xl transition-transform transform hover:scale-105 duration-300 inline-block text-lg animate-bounce-in" data-i18n="hero.button">
+                    ទិញទំនិញឥឡូវនេះ
+                </a>
+            </div>
+        </section>
+        
+        <!-- About Us Section -->
+        <section id="about-us" class="py-20 px-4 bg-gray-900 text-gray-300">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12" data-i18n="about.title">អំពី SP E-STORE</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                    <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+                        <i class="fas fa-shipping-fast text-blue-400 text-5xl mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature1.title">ដឹកជញ្ជូនលឿនរហ័ស</h3>
+                        <p data-i18n="about.feature1.desc">សេវាកម្មដឹកជញ្ជូនទាន់ចិត្ត ទូទាំងប្រទេស។ ទទួលបានទំនិញរបស់អ្នកក្នុងរយៈពេលខ្លីបំផុត។</p>
+                    </div>
+                    <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+                        <i class="fas fa-check-circle text-blue-400 text-5xl mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature2.title">គុណភាពធានា</h3>
+                        <p data-i18n="about.feature2.desc">ផលិតផលសុទ្ធ 100% ពីក្រុមហ៊ុន ជាមួយនឹងការធានាត្រឹមត្រូវ និងសេវាកម្មជួសជុល។</p>
+                    </div>
+                    <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+                        <i class="fas fa-headset text-blue-400 text-5xl mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature3.title">សេវាកម្មអតិថិជន 24/7</h3>
+                        <p data-i18n="about.feature3.desc">ក្រុមការងារយើងខ្ញុំ ត្រៀមខ្លួនជានិច្ចដើម្បីឆ្លើយតបគ្រប់ចម្ងល់ និងដោះស្រាយបញ្ហារបស់អ្នក។</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-950 text-white py-8 px-4 text-center">
+        <div class="container mx-auto">
+            <p class="mb-4" data-i18n="footer.copyright">&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.privacyPolicy">គោលការណ៍ឯកជនភាព</a>
+                <span class="text-gray-500">|</span>
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.termsOfService">លក្ខខណ្ឌប្រើប្រាស់</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- START OF SHARED SCRIPT ---
+        const translations = {
+            km: {
+                lang: { flag: 'https://flagcdn.com/w40/kh.png' },
+                nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
+                hero: {
+                    title: 'សូមស្វាគមន៍មកកាន់ SP E-STORE',
+                    subtitle: 'ហាងលក់គ្រឿងអេឡិចត្រូនិកទំនើប ឈានមុខគេ ផ្ដល់ជូនគុណភាព និងតម្លៃដ៏ល្អបំផុត។',
+                    button: 'ទិញទំនិញឥឡូវនេះ'
+                },
+                about: {
+                    title: 'អំពី SP E-STORE',
+                    feature1: { title: 'ដឹកជញ្ជូនលឿនរហ័ស', desc: 'សេវាកម្មដឹកជញ្ជូនទាន់ចិត្ត ទូទាំងប្រទេស។ ទទួលបានទំនិញរបស់អ្នកក្នុងរយៈពេលខ្លីបំផុត។' },
+                    feature2: { title: 'គុណភាពធានា', desc: 'ផលិតផលសុទ្ធ 100% ពីក្រុមហ៊ុន ជាមួយនឹងការធានាត្រឹមត្រូវ និងសេវាកម្មជួសជុល។' },
+                    feature3: { title: 'សេវាកម្មអតិថិជន 24/7', desc: 'ក្រុមការងារយើងខ្ញុំ ត្រៀមខ្លួនជានិច្ចដើម្បីឆ្លើយតបគ្រប់ចម្ងល់ និងដោះស្រាយបញ្ហារបស់អ្នក។' }
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។', privacyPolicy: 'គោលការណ៍ឯកជនភាព', termsOfService: 'លក្ខខណ្ឌប្រើប្រាស់' }
+            },
+            en: {
+                lang: { flag: 'https://flagcdn.com/w40/us.png' },
+                nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
+                hero: {
+                    title: 'Welcome to SP E-STORE',
+                    subtitle: 'The leading modern electronics store, offering the best quality and value.',
+                    button: 'Shop Now'
+                },
+                about: {
+                    title: 'About SP E-STORE',
+                    feature1: { title: 'Fast Delivery', desc: 'Prompt delivery service nationwide. Get your items in the shortest time.' },
+                    feature2: { title: 'Guaranteed Quality', desc: '100% genuine products from companies with proper warranties and repair services.' },
+                    feature3: { title: '24/7 Customer Service', desc: 'Our team is always ready to answer all your questions and solve your problems.' }
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
+            },
+            zh: { // Added Chinese translations
+                lang: { flag: 'https://flagcdn.com/w40/cn.png' },
+                nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
+                hero: {
+                    title: '欢迎来到 SP E-STORE',
+                    subtitle: '领先的现代电子商店，提供最好的质量和价值。',
+                    button: '立即选购'
+                },
+                about: {
+                    title: '关于 SP E-STORE',
+                    feature1: { title: '快速交货', desc: '全国范围内的及时送货服务。 在最短的时间内收到您的物品。' },
+                    feature2: { title: '质量保证', desc: '100% 正品公司产品，提供适当的保修和维修服务。' },
+                    feature3: { title: '24/7 客户服务', desc: '我们的团队随时准备回答您的所有问题并解决您的问题。' }
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE。 版权所有。', privacyPolicy: '隐私政策', termsOfService: '服务条款' }
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'km';
+        // let cart = JSON.parse(localStorage.getItem('cart')) || []; // Cart is managed in local storage
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang;
+            
+            // Update all text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const nestedKey = key.split('.');
+                let text = translations[lang];
+                for (const k of nestedKey) {
+                    text = text?.[k];
+                }
+                if (text) {
+                    const icon = el.querySelector('i');
+                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
+                         const textNode = el.querySelector('span');
+                        if (textNode) {
+                            textNode.textContent = text;
+                        } else {
+                            el.innerHTML = icon.outerHTML + " " + text;
+                        }
+                    } else if (el.id === 'cart-count') {
+                        // Don't change cart count
+                    } else {
+                        el.innerHTML = text;
+                    }
+                }
+            });
+            
+            // Update language switcher
+            updateLanguageSwitcher();
+            
+            // Close dropdowns
+            document.getElementById('lang-dropdown-menu').classList.add('hidden');
+            document.getElementById('lang-dropdown-menu-mobile').classList.add('hidden');
+        }
+        
+        // Updated function to handle dropdown state
+        function updateLanguageSwitcher() {
+            const currentLangData = translations[currentLang];
+            if (!currentLangData) return;
+
+            // Update toggle button flags
+            document.getElementById('lang-toggle-flag').src = currentLangData.lang.flag;
+            document.getElementById('lang-toggle-flag-mobile').src = currentLangData.lang.flag;
+
+            // Update mobile toggle button text
+            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
+            if (mobileLangText) {
+                mobileLangText.textContent = currentLangData.nav.language;
+            }
+
+            // Show/hide items in dropdowns
+            document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('hidden'); // Hide selected language
+                } else {
+                    btn.classList.remove('hidden');
+                }
+            });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        function updateCartCount() {
+            const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+                cartCountElement.textContent = totalQuantity;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu Listeners ---
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', toggleMobileMenu));
+            
+            // --- Language Dropdown Listeners ---
+            const langToggleButton = document.getElementById('lang-toggle-button');
+            const langDropdownMenu = document.getElementById('lang-dropdown-menu');
+            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
+            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+
+            langToggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdownMenu.classList.toggle('hidden');
+            });
+            
+            langToggleButtonMobile.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdownMenuMobile.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.lang-dropdown-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    setLanguage(button.dataset.lang);
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                    langDropdownMenu.classList.add('hidden');
+                }
+                if (!langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
+                    langDropdownMenuMobile.classList.add('hidden');
+                }
+            });
+
+            // --- Theme Toggle Logic ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const htmlEl = document.documentElement;
+
+            function setTheme(theme) {
+                const mobileIcon = themeToggleMobile.querySelector('i');
+                if (theme === 'light') {
+                    htmlEl.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
+                    if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
+                } else {
+                    htmlEl.classList.remove('light');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
+                    if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
+                }
+            }
+
+            const currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            setTheme(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = htmlEl.classList.contains('light') ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+
+            themeToggleMobile.addEventListener('click', () => {
+                const newTheme = htmlEl.classList.contains('light') ? 'dark' : 'light';
+                setTheme(newTheme);
+                // Don't close mobile menu, just toggle theme
+            });
+
+            // --- Initial Load ---
+            setLanguage(currentLang); // This will also call updateLanguageSwitcher
+            updateCartCount(); // Initial count load
+        });
+        // --- END OF SHARED SCRIPT ---
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">SP E-STORE - ផលិតផល</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Kantumruy Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+        }
+        html { scroll-behavior: smooth; }
+        .text-theme-primary { color: #3b82f6; }
+        .bg-theme-primary { background-color: #3b82f6; }
+        .hover\:bg-theme-primary-dark:hover { background-color: #2563eb; }
+        .border-theme-primary { border-color: #3b82f6; }
+        .ring-theme-primary { --tw-ring-color: #3b82f6; }
+
+        /* Product Card effects */
+        .product-card {
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #374151; /* gray-700 */
+            background-color: #1f2937; /* bg-gray-800 */
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+            border-color: #3b82f6;
+        }
+        .add-to-cart-btn { transition: all 0.2s ease-in-out; }
+        .add-to-cart-btn:hover { transform: scale(1.05); }
+
+        /* Nav link icon alignment */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+        }
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* 16px */
+        }
+        
+        /* Category Button Styling */
+        .category-btn {
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-weight: 600;
+            background-color: #374151; /* bg-gray-700 */
+            color: #d1d5db; /* text-gray-300 */
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .category-btn:hover {
+            background-color: #4b5563; /* bg-gray-600 */
+        }
+        .category-btn.active {
+            background-color: #3b82f6; /* bg-blue-500 */
+            color: #ffffff; /* text-white */
+            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.2);
+            border-color: #60a5fa; /* border-blue-300 */
+        }
+
+        /* --- Light Mode Overrides (Copied from index.html) --- */
+        html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
+        html.light nav { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e5e7eb; } /* bg-white/90, border-gray-200 */
+        html.light nav a, html.light nav button.nav-link, html.light nav button#theme-toggle { color: #374151; } /* text-gray-700 */
+        html.light nav a:hover, html.light nav button.nav-link:hover, html.light nav button#theme-toggle:hover { background-color: #f3f4f6; color: #3b82f6; } /* hover:bg-gray-100, hover:text-blue-500 */
+        html.light nav a.bg-blue-600 { background-color: #3b82f6; color: #ffffff; } /* Active nav link */
+        
+        html.light #mobile-menu { background-color: rgba(255, 255, 255, 0.95); }
+        html.light #mobile-menu a, html.light #mobile-menu button { color: #1f2937; } /* text-gray-800 */
+        html.light #mobile-menu a:hover, html.light #mobile-menu button:hover { color: #3b82f6; }
+
+        /* Light mode for product page */
+        html.light .product-card { 
+            background-color: #ffffff; 
+            color: #374151;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); 
+            border: 1px solid #e5e7eb;
+        }
+        html.light .product-card h3 { color: #1f2937; }
+        html.light .category-btn { background-color: #e5e7eb; color: #374151; }
+        html.light .category-btn:hover { background-color: #d1d5db; }
+        html.light .category-btn.active { background-color: #3b82f6; color: #ffffff; border-color: #60a5fa; }
+        html.light #product-search { background-color: #f3f4f6; border-color: #d1d5db; color: #1f2937; }
+        html.light #product-search::placeholder { color: #6b7280; }
+
+        html.light footer { background-color: #1f2937; color: #e5e7eb; } /* bg-gray-800, text-gray-200 */
+        html.light footer a { color: #d1d5db; } /* text-gray-300 */
+        html.light footer a:hover { color: #ffffff; }
+
+        /* --- Language Dropdown Styles (Copied from index.html) --- */
+        .lang-dropdown-menu {
+            background-color: #1f2937; /* bg-gray-800 */
+            border: 1px solid #374151; /* border-gray-700 */
+        }
+        html.light .lang-dropdown-menu {
+            background-color: #ffffff; /* bg-white */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .lang-dropdown-item {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .lang-dropdown-item:hover {
+            background-color: #374151; /* hover:bg-gray-700 */
+        }
+        html.light .lang-dropdown-item {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .lang-dropdown-item:hover {
+            background-color: #f3f4f6; /* hover:bg-gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+    <!-- Updated Navigation Bar -->
+    <nav class="bg-gray-800/90 backdrop-blur-lg shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <i class="fas fa-store"></i> SP E-STORE
+            </a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="index.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.home">
+                    <i class="fas fa-home w-5 text-center"></i>
+                    <span>ទំព័រដើម</span>
+                </a>
+                <a href="products.html" class="nav-link text-white bg-blue-600 font-semibold transition-colors rounded-lg py-2 px-3" data-i18n="nav.products">
+                    <i class="fas fa-boxes w-5 text-center"></i>
+                    <span>ផលិតផល</span>
+                </a>
+                <a href="contact.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg py-2 px-3 hover:bg-gray-700" data-i18n="nav.contact">
+                    <i class="fas fa-envelope w-5 text-center"></i>
+                    <span>ទំនាក់ទំនង</span>
+                </a>
+                <a href="cart.html" class="nav-link text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
+                    <i class="fas fa-sun text-xl"></i>
+                </button>
+                
+                <!-- Language Dropdown (Desktop) -->
+                <div id="lang-dropdown-desktop" class="relative ml-2">
+                    <button id="lang-toggle-button" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        <img id="lang-toggle-flag" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-6 block rounded-sm">
+                        <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                    </button>
+                    <div id="lang-dropdown-menu" class="lang-dropdown-menu hidden absolute top-full right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="km">
+                            <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                            <span>ខ្មែរ</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="en">
+                            <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                            <span>English</span>
+                        </button>
+                        <button class="lang-dropdown-item w-full text-left px-4 py-2 flex items-center space-x-3" data-lang="zh">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                            <span>中文</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Updated Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
+            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
+            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
+            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
+            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span>
+        </a>
+        <!-- Mobile Theme Toggle Button -->
+        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
+            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
+        </button>
+        
+        <!-- Language Dropdown (Mobile) -->
+        <div id="lang-dropdown-mobile" class="relative mt-4">
+            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
+                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
+                <span class="text-3xl font-semibold text-gray-200" data-i18n="nav.language">ភាសា</span>
+                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
+            </button>
+            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
+                    <span class="text-lg">ខ្មែរ</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
+                    <span class="text-lg">English</span>
+                </button>
+                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
+                    <span class="text-lg">中文</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <main>
+       <section id="products-list" class="py-16 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold mb-8 text-center" data-i18n="products.heading"><i class="fas fa-laptop-code"></i> ផលិតផលទាំងអស់ <i class="fas fa-mobile-alt"></i></h2>
+                
+                <!-- Category Filter Buttons -->
+                <div id="category-buttons" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                    <button class="category-btn active" onclick="filterProducts('', this)" data-i18n="products.categories.all">ផលិតផលទាំងអស់</button>
+                    <button class="category-btn" onclick="filterProducts('laptops', this)" data-i18n="products.categories.laptops">កុំព្យូទ័រយួរដៃ</button>
+                    <button class="category-btn" onclick="filterProducts('phones', this)" data-i18n="products.categories.phones">ទូរស័ព្ទដៃ</button>
+                    <button class="category-btn" onclick="filterProducts('tablets', this)" data-i18n="products.categories.tablets">ថេប្លេត</button>
+                    <button class="category-btn" onclick="filterProducts('audio', this)" data-i18n="products.categories.audio">ឧបករណ៍អូឌីយ៉ូ</button>
+                    <button class="category-btn" onclick="filterProducts('accessories', this)" data-i18n="products.categories.accessories">គ្រឿងបន្លាស់</button>
+                </div>
+
+                <!-- Search Input -->
+                <div class="mb-10 max-w-lg mx-auto">
+                    <input type="text" id="product-search" placeholder="ស្វែងរកផលិតផល..." data-i18n-placeholder="products.searchPlaceholder" class="w-full p-3 bg-gray-800 border-2 border-gray-600 rounded-full shadow-inner focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-semibold text-lg text-center text-gray-200">
+                </div>
+
+                <!-- Product Categories Container -->
+                <div id="product-categories-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                    <!-- Products will be dynamically inserted here as a grid -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-950 text-white py-8 px-4 text-center">
+        <div class="container mx-auto">
+            <p class="mb-4" data-i18n="footer.copyright">&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.privacyPolicy">គោលការណ៍ឯកជនភាព</a>
+                <span class="text-gray-500">|</span>
+                <a href="#" class="text-gray-400 hover:text-white" data-i18n="footer.termsOfService">លក្ខខណ្ឌប្រើប្រាស់</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add to Cart Message Box -->
+    <div id="cartMessageBox" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-lg shadow-xl hidden transition-all duration-300 ease-in-out transform translate-y-4 opacity-0 z-[1000]">
+        <i class="fas fa-check-circle mr-2"></i> <span data-i18n="cart.addedToCartMessage">បានបន្ថែមទៅរទេះ!</span>
+    </div>
+    
+    <!-- Updated JavaScript Section -->
+    <script>
+        // Updated translations object
+        const translations = {
+            km: {
+                lang: { flag: 'https://flagcdn.com/w40/kh.png' },
+                pageTitle: 'SP E-STORE - ផលិតផល',
+                nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
+                products: { 
+                    heading: '🛒 ផលិតផលទាំងអស់ 📱', 
+                    searchPlaceholder: 'ស្វែងរកតាមឈ្មោះផលិតផល...',
+                    noResults: 'រកមិនឃើញផលិតផលណាត្រូវនឹងការស្វែងរករបស់អ្នកទេ។',
+                    categories: {
+                        all: 'ផលិតផលទាំងអស់',
+                        laptops: 'កុំព្យូទ័រយួរដៃ',
+                        phones: 'ទូរស័ព្ទដៃ',
+                        accessories: 'គ្រឿងបន្លាស់',
+                        tablets: 'ថេប្លេត',
+                        audio: 'ឧបករណ៍អូឌីយ៉ូ'
+                    }
+                },
+                cart: { 
+                    addedToCartMessage: 'បានបន្ថែមទៅរទេះ! កំពុងបញ្ជូនទៅរទេះ...',
+                    addToCart: 'បន្ថែមទៅរទេះ'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។', privacyPolicy: 'គោលការណ៍ឯកជនភាព', termsOfService: 'លក្ខខណ្ឌប្រើប្រាស់' }
+            },
+            en: {
+                lang: { flag: 'https://flagcdn.com/w40/us.png' },
+                pageTitle: 'SP E-STORE - Products',
+                nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
+                products: { 
+                    heading: '🛒 All Products 📱',
+                    searchPlaceholder: 'Search by product name...',
+                    noResults: 'No products found matching your search.',
+                    categories: {
+                        all: 'All Products',
+                        laptops: 'Laptops',
+                        phones: 'Smartphones',
+                        accessories: 'Accessories',
+                        tablets: 'Tablets',
+                        audio: 'Audio Devices'
+                    }
+                },
+                cart: { 
+                    addedToCartMessage: 'Added to cart! Redirecting...',
+                    addToCart: 'Add to Cart'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
+            },
+            zh: { // Added Chinese
+                lang: { flag: 'https://flagcdn.com/w40/cn.png' },
+                pageTitle: 'SP E-STORE - 产品',
+                nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
+                products: { 
+                    heading: '🛒 所有产品 📱',
+                    searchPlaceholder: '按产品名称搜索...',
+                    noResults: '未找到符合您搜索的产品。',
+                    categories: {
+                        all: '所有产品',
+                        laptops: '笔记本电脑',
+                        phones: '智能手机',
+                        accessories: '配件',
+                        tablets: '平板电脑',
+                        audio: '音频设备'
+                    }
+                },
+                cart: { 
+                    addedToCartMessage: '已添加到购物车！ 正在重定向...',
+                    addToCart: '添加到购物车'
+                },
+                footer: { copyright: '&copy; 2025 SP E-STORE。 版权所有。', privacyPolicy: '隐私政策', termsOfService: '服务条款' }
+            }
+        };
+        
+        // Product data (remains the same)
+        const productData = [
+            { id: 1, category: 'laptops', name: {km: 'Laptop Dell XPS 15', en: 'Dell XPS 15 Laptop'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Dell+XPS+15', price: 6000000 },
+            { id: 2, category: 'laptops', name: {km: 'MacBook Pro 14"', en: 'MacBook Pro 14"'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=MacBook+Pro', price: 8000000 },
+            { id: 3, category: 'phones', name: {km: 'iPhone 15 Pro Max', en: 'iPhone 15 Pro Max'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=iPhone+15', price: 5200000 },
+            { id: 4, category: 'phones', name: {km: 'Samsung Galaxy S24 Ultra', en: 'Samsung Galaxy S24 Ultra'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Galaxy+S24', price: 5000000 },
+            { id: 5, category: 'audio', name: {km: 'Sony WH-1000XM5', en: 'Sony WH-1000XM5'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Sony+Headphones', price: 1600000 },
+            { id: 6, category: 'audio', name: {km: 'Apple AirPods Pro 2', en: 'Apple AirPods Pro 2'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=AirPods+Pro', price: 1000000 },
+            { id: 7, category: 'tablets', name: {km: 'iPad Pro 11"', en: 'iPad Pro 11"'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=iPad+Pro', price: 3200000 },
+            { id: 8, category: 'accessories', name: {km: 'Anker Power Bank 20,000mAh', en: 'Anker Power Bank 20,000mAh'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Power+Bank', price: 200000 },
+            { id: 9, category: 'accessories', name: {km: 'Logitech MX Master 3S', en: 'Logitech MX Master 3S'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Mouse', price: 400000 },
+            { id: 10, category: 'laptops', name: {km: 'Lenovo Yoga 9i', en: 'Lenovo Yoga 9i'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Lenovo+Yoga', price: 5000000 },
+            { id: 11, category: 'phones', name: {km: 'Google Pixel 8 Pro', en: 'Google Pixel 8 Pro'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Pixel+8+Pro', price: 4000000 },
+            { id: 12, category: 'audio', name: {km: 'JBL Charge 5 Speaker', en: 'JBL Charge 5 Speaker'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=JBL+Speaker', price: 720000 },
+        ];
+
+        let currentLang = localStorage.getItem('language') || 'km';
+        let currentCategory = ''; // Store the currently active category
+        
+        // --- TRANSLATION & UTILITIES ---
+        function getTranslation(key, lang = currentLang) {
+            const nestedKey = key.split('.');
+            let text = translations[lang];
+            for (const k of nestedKey) {
+                text = text?.[k];
+            }
+            return text || key;
+        }
+        
+        // Updated setLanguage function
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang;
+            
+            // Update all text content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const text = getTranslation(key, lang);
+                
+                if (text) {
+                    const icon = el.querySelector('i');
+                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
+                        const textNode = el.querySelector('span');
+                        if (textNode) {
+                            textNode.textContent = text;
+                        }
+                    } else if (el.classList.contains('category-btn') || el.id === 'cartMessageBox' || el.tagName === 'P' || el.tagName === 'H2' || el.tagName === 'A') {
+                        // Handle elements that might just contain text
+                        el.innerHTML = text;
+                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.classList.contains('lang-toggle-button-mobile'))) {
+                        el.textContent = text; // Specific for mobile nav text
+                    }
+                    else {
+                        el.innerHTML = text; // Default case
+                    }
+                }
+            });
+
+            // Update title and placeholders
+            document.querySelector('title').textContent = getTranslation('pageTitle', lang);
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                const text = getTranslation(key, lang);
+                if (text) el.placeholder = text;
+            });
+
+            // Update language switcher
+            updateLanguageSwitcher();
+            
+            // Re-render products to update names and "Add to Cart" text
+            filterProducts(currentCategory); 
+        }
+
+        // NEW: updateLanguageSwitcher function (from index.html)
+        function updateLanguageSwitcher() {
+            const currentLangData = translations[currentLang];
+            if (!currentLangData) return;
+
+            // Update toggle button flags
+            document.getElementById('lang-toggle-flag').src = currentLangData.lang.flag;
+            document.getElementById('lang-toggle-flag-mobile').src = currentLangData.lang.flag;
+
+            // Update mobile toggle button text
+            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
+            if (mobileLangText) {
+                mobileLangText.textContent = currentLangData.nav.language;
+            }
+
+            // Show/hide items in dropdowns
+            document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
+                if (btn.dataset.lang === currentLang) {
+                    btn.classList.add('hidden'); // Hide selected language
+                } else {
+                    btn.classList.remove('hidden');
+                }
+            });
+        }
+        
+        // Prices are in KHR, so we format them.
+        function formatPrice(khrValue) {
+            return `${Math.round(khrValue).toLocaleString('km-KH')}៛`;
+        }
+
+        // --- PRODUCT RENDERING & FILTERING ---
+        function createProductCard(p) {
+            const priceDisplay = formatPrice(p.price);
+            // Get translated product name
+            const productName = p.name[currentLang] || p.name['km']; 
+            
+            let buttonsHtml = `
+                <button onclick="addToCart(${p.id})" class="add-to-cart-btn bg-theme-primary hover:bg-theme-primary-dark text-white font-bold py-2.5 px-5 rounded-full w-full">
+                    <i class="fas fa-cart-plus mr-2"></i> <span>${getTranslation('cart.addToCart')}</span>
+                </button>
+            `;
+
+            return `
+                <div class="product-card p-3 sm:p-5 rounded-xl shadow-lg text-center flex flex-col justify-between">
+                    <div>
+                        <img src="${p.img}" alt="${productName}" 
+                             class="w-full h-40 sm:h-56 object-cover rounded-lg mb-4" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/374151/e5e7eb?text=Image+Error';">
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 h-14 overflow-hidden">${productName}</h3>
+                    </div>
+                    <div>
+                        <p class="text-xl font-extrabold text-blue-400 mb-4">${priceDisplay}</p>
+                        <div class="space-y-2 mt-4">
+                            ${buttonsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts(filterTerm = '', category = '') {
+            const container = document.getElementById('product-categories-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const lowerCaseFilter = filterTerm.toLowerCase();
+            const filteredProducts = productData.filter(p => {
+                // Category filter
+                if (category && p.category !== category) {
+                    return false;
+                }
+                // Search term filter
+                const searchString = (p.name['km'] + ' ' + p.name['en'] + ' ' + (p.name['zh'] || '')).toLowerCase();
+                return searchString.includes(lowerCaseFilter);
+            });
+
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `<p class="text-xl text-gray-400 mt-8 col-span-full text-center">${getTranslation('products.noResults')}</p>`;
+                return;
+            }
+
+            container.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6';
+            filteredProducts.forEach(p => {
+                container.insertAdjacentHTML('beforeend', createProductCard(p));
+            });
+        }
+        
+        function filterProducts(category, btnElement = null) {
+            if (btnElement) {
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            
+            currentCategory = category;
+            const searchTerm = document.getElementById('product-search').value;
+            renderProducts(searchTerm, currentCategory);
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const product = productData.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ 
+                    id: productId, 
+                    name: product.name, 
+                    price: product.price, 
+                    img: product.img, 
+                    quantity: 1 
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount(); // Update count immediately
+            showCartMessageAndRedirect();
+        }
+
+        function updateCartCount() {
+            const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+                cartCountElement.textContent = totalQuantity;
+            }
+        }
+        
+        // --- UI Interactions ---
+        function showCartMessageAndRedirect() {
+            const msgBox = document.getElementById('cartMessageBox');
+            msgBox.querySelector('span').textContent = getTranslation('cart.addedToCartMessage');
+            msgBox.classList.remove('hidden', 'translate-y-4', 'opacity-0');
+            
+            setTimeout(() => {
+                window.location.href = 'cart.html';
+            }, 1500);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // --- NEW: Theme Toggle Logic (from index.html) ---
+        function setTheme(theme) {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const htmlEl = document.documentElement;
+            const mobileIcon = themeToggleMobile.querySelector('i');
+
+            if (theme === 'light') {
+                htmlEl.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
+                if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
+            } else {
+                htmlEl.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
+                if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu Listeners ---
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('#mobile-menu a:not(#lang-toggle-button-mobile)').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+            
+            // --- NEW: Language Dropdown Listeners (from index.html) ---
+            const langToggleButton = document.getElementById('lang-toggle-button');
+            const langDropdownMenu = document.getElementById('lang-dropdown-menu');
+            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
+            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+
+            if (langToggleButton) {
+                langToggleButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langDropdownMenu.classList.toggle('hidden');
+                });
+            }
+            
+            if (langToggleButtonMobile) {
+                langToggleButtonMobile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langDropdownMenuMobile.classList.toggle('hidden');
+                });
+            }
+
+            document.querySelectorAll('.lang-dropdown-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    setLanguage(button.dataset.lang);
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (langDropdownMenu && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                    langDropdownMenu.classList.add('hidden');
+                }
+                if (langDropdownMenuMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
+                    langDropdownMenuMobile.classList.add('hidden');
+                }
+            });
+
+            // --- NEW: Theme Toggle Listeners (from index.html) ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+                    setTheme(newTheme);
+                });
+            }
+
+            if (themeToggleMobile) {
+                themeToggleMobile.addEventListener('click', () => {
+                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+                    setTheme(newTheme);
+                    // Don't close mobile menu, just toggle theme
+                });
+            }
+            
+            // --- Search input listener ---
+            const productSearch = document.getElementById('product-search');
+            if(productSearch) {
+                productSearch.addEventListener('input', () => filterProducts(currentCategory));
+            }
+            
+            // --- Initial Load ---
+            const currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            setTheme(currentTheme); // Set theme first
+            setLanguage(currentLang); // Set language (which also calls filterProducts)
+            updateCartCount(); // Initial load
+            
+            // Set active category button visually without triggering re-render
+            document.querySelector('.category-btn').classList.add('active');
+        });
+        
+        // Make functions globally accessible from the HTML
+        window.addToCart = addToCart;
+        window.filterProducts = filterProducts;
+    </script>
+</body>
+</html>
