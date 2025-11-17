@@ -50,18 +50,24 @@
             gap: 1rem; /* 16px */
         }
         
-        /* Category Button Styling */
+        /* [UPDATED] Category Button Styling */
         .category-btn {
-            padding: 8px 20px;
-            border-radius: 9999px;
+            padding: 10px 16px; /* 10px top/bottom, 16px left/right */
+            border-radius: 0.5rem; /* 8px */
             font-weight: 600;
             background-color: #374151; /* bg-gray-700 */
             color: #d1d5db; /* text-gray-300 */
             transition: all 0.2s ease;
             border: 2px solid transparent;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem; /* 12px */
+            text-align: left;
         }
         .category-btn:hover {
             background-color: #4b5563; /* bg-gray-600 */
+            color: #ffffff;
         }
         .category-btn.active {
             background-color: #3b82f6; /* bg-blue-500 */
@@ -69,6 +75,66 @@
             box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.2);
             border-color: #60a5fa; /* border-blue-300 */
         }
+        .category-btn i {
+            width: 20px; /* Fixed width for icon alignment */
+            text-align: center;
+        }
+        
+        /* [NEW] Modal Styles */
+        #productModalOverlay {
+            transition: opacity 0.3s ease;
+        }
+        #productModal {
+            transition: all 0.3s ease;
+        }
+        #productModalOverlay.active {
+            opacity: 1;
+        }
+        #productModal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        html.light #productModal {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        html.light #productModal #modal-product-description {
+             color: #4b5563;
+        }
+        html.light #modal-product-name {
+            color: #111827;
+        }
+
+        /* [NEW] Gallery Thumbnail Styles */
+        .gallery-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 2px solid #4b5563; /* border-gray-600 */
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+        .gallery-thumbnail:hover {
+            border-color: #60a5fa; /* border-blue-400 */
+            opacity: 1;
+        }
+        .gallery-thumbnail.active {
+            border-color: #3b82f6; /* border-blue-500 */
+            box-shadow: 0 0 0 2px #3b82f6;
+            opacity: 1;
+        }
+        html.light .gallery-thumbnail {
+             border-color: #d1d5db; /* border-gray-300 */
+        }
+        html.light .gallery-thumbnail:hover {
+            border-color: #60a5fa;
+        }
+        html.light .gallery-thumbnail.active {
+            border-color: #3b82f6;
+        }
+
 
         /* --- Light Mode Overrides (Copied from index.html) --- */
         html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
@@ -89,11 +155,26 @@
             border: 1px solid #e5e7eb;
         }
         html.light .product-card h3 { color: #1f2937; }
+        
+        /* [UPDATED] Light mode category buttons */
         html.light .category-btn { background-color: #e5e7eb; color: #374151; }
-        html.light .category-btn:hover { background-color: #d1d5db; }
+        html.light .category-btn:hover { background-color: #d1d5db; color: #1f2937; }
         html.light .category-btn.active { background-color: #3b82f6; color: #ffffff; border-color: #60a5fa; }
-        html.light #product-search { background-color: #f3f4f6; border-color: #d1d5db; color: #1f2937; }
+        
+        /* [UPDATED] Light mode search box */
+        html.light #product-search { background-color: #ffffff; border-color: #d1d5db; color: #1f2937; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
         html.light #product-search::placeholder { color: #6b7280; }
+        html.light #product-search:focus { background-color: #ffffff; }
+
+        /* [NEW] Light mode for mobile select */
+        html.light #category-select {
+            background-color: #ffffff;
+            border-color: #d1d5db;
+            color: #1f2937;
+        }
+        html.light #category-select:focus {
+            background-color: #ffffff;
+        }
 
         html.light footer { background-color: #1f2937; color: #e5e7eb; } /* bg-gray-800, text-gray-200 */
         html.light footer a { color: #d1d5db; } /* text-gray-300 */
@@ -119,6 +200,48 @@
         }
         html.light .lang-dropdown-item:hover {
             background-color: #f3f4f6; /* hover:bg-gray-100 */
+        }
+
+        /* [NEW] Add padding to body for bottom nav */
+        body {
+            padding-bottom: 80px; /* Height of the bottom nav */
+        }
+        @media (min-width: 768px) { /* md */
+            body {
+                padding-bottom: 0;
+            }
+        }
+
+        /* [NEW] Mobile Bottom Nav */
+        .mobile-bottom-nav {
+            background-color: #1f2937; /* bg-gray-800 */
+            border-top: 1px solid #374151; /* border-gray-700 */
+        }
+        .bottom-nav-link {
+            color: #9ca3af; /* text-gray-400 */
+        }
+        .bottom-nav-link:hover {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
+            font-weight: 600;
+        }
+
+        /* [NEW] Light Mode Bottom Nav */
+        html.light .mobile-bottom-nav {
+            background-color: #ffffff; /* bg-white */
+            border-top: 1px solid #e5e7eb; /* border-gray-200 */
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        html.light .bottom-nav-link {
+            color: #6b7280; /* text-gray-500 */
+        }
+        html.light .bottom-nav-link:hover {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
         }
     </style>
 </head>
@@ -182,19 +305,10 @@
     
     <!-- Updated Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
-        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
-            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
-        </a>
-        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
-            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
-        </a>
-        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
-            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
-        </a>
-        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
-            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span>
-        </a>
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        
+        <!-- [REMOVED] Navigation links are now in the bottom bar -->
+
         <!-- Mobile Theme Toggle Button -->
         <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
             <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
@@ -227,31 +341,95 @@
     <main>
        <section id="products-list" class="py-16 px-4">
             <div class="container mx-auto">
-                <h2 class="text-4xl font-bold mb-8 text-center" data-i18n="products.heading"><i class="fas fa-laptop-code"></i> ផលិតផលទាំងអស់ <i class="fas fa-mobile-alt"></i></h2>
+                <!-- [NEW] Title and Subtitle -->
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-2" data-i18n="products.heading">🛒ផលិតផល🛍️</h2>
+                    <p class="text-lg text-gray-400" data-i18n="products.subheading">ស្វែងរកផលិតផលដែលអ្នកត្រូវការ និងផលិតផលជាច្រើនទៀត</p>
+                </div>
                 
-                <!-- Category Filter Buttons -->
-                <div id="category-buttons" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
-                    <button class="category-btn active" onclick="filterProducts('', this)" data-i18n="products.categories.all">ផលិតផលទាំងអស់</button>
-                    <button class="category-btn" onclick="filterProducts('laptops', this)" data-i18n="products.categories.laptops">កុំព្យូទ័រយួរដៃ</button>
-                    <button class="category-btn" onclick="filterProducts('phones', this)" data-i18n="products.categories.phones">ទូរស័ព្ទដៃ</button>
-                    <button class="category-btn" onclick="filterProducts('tablets', this)" data-i18n="products.categories.tablets">ថេប្លេត</button>
-                    <button class="category-btn" onclick="filterProducts('audio', this)" data-i18n="products.categories.audio">ឧបករណ៍អូឌីយ៉ូ</button>
-                    <button class="category-btn" onclick="filterProducts('accessories', this)" data-i18n="products.categories.accessories">គ្រឿងបន្លាស់</button>
-                </div>
+                <!-- [NEW] Two-column layout -->
+                <div class="flex flex-col md:flex-row">
+                    
+                    <!-- [NEW] Sidebar for Categories - Hidden on mobile -->
+                    <aside class="w-full md:w-1/4 lg:w-1/5 mb-8 md:mb-0 md:pr-6 hidden md:block">
+                        <h3 class="text-2xl font-bold mb-4" data-i18n="products.categories.title">ប្រភេទ</h3>
+                        <!-- [UPDATED] Category Filter Buttons - Removed unused categories -->
+                        <div id="category-buttons" class="flex flex-col space-y-2">
+                            <button class="category-btn active" onclick="filterProducts('', this)" data-i18n="products.categories.all">
+                                <i class="fas fa-boxes"></i> <span>ផលិតផលទាំងអស់</span>
+                            </button>
+                            <!-- Category 'laptops' (Desktop) removed as no products match -->
+                            <!-- Category 'phones' (Laptop) removed as no products match -->
+                            <button class="category-btn" onclick="filterProducts('tablets', this)" data-i18n="products.categories.tablets">
+                                <i class="fas fa-keyboard"></i> <span>Mouse & Keyboards</span> <!-- MODIFIED -->
+                            </button>
+                            <button class="category-btn" onclick="filterProducts('audio', this)" data-i18n="products.categories.audio">
+                                <i class="fas fa-headphones"></i> <span>ឧបករណ៍អូឌីយ៉ូ</span>
+                            </button>
+                            <button class="category-btn" onclick="filterProducts('accessories', this)" data-i18n="products.categories.accessories">
+                                <i class="fas fa-microchip"></i> <span>គ្រឿងអេឡិចត្រូនិក</span> <!-- MODIFIED -->
+                            </button>
+                        </div>
+                    </aside>
 
-                <!-- Search Input -->
-                <div class="mb-10 max-w-lg mx-auto">
-                    <input type="text" id="product-search" placeholder="ស្វែងរកផលិតផល..." data-i18n-placeholder="products.searchPlaceholder" class="w-full p-3 bg-gray-800 border-2 border-gray-600 rounded-full shadow-inner focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-semibold text-lg text-center text-gray-200">
-                </div>
+                    <!-- [NEW] Main Product Grid -->
+                    <div class="w-full md:w-3/4 lg:w-4/5 md:pl-6">
+                        
+                        <!-- [NEW] Mobile Category Filter Dropdown -->
+                        <div class="md:hidden mb-8">
+                            <h3 class="text-2xl font-bold mb-4" data-i18n="products.categories.title">ប្រភេទ</h3>
+                            <div class="relative">
+                                <select id="category-select" class="w-full p-3 bg-gray-800 border-2 border-gray-600 rounded-lg shadow-inner focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-semibold text-lg text-gray-200 appearance-none">
+                                    <option value="" data-i18n="products.categories.all">ផលិតផលទាំងអស់</option>
+                                    <option value="tablets" data-i18n="products.categories.tablets">Mouse & Keyboards</option>
+                                    <option value="audio" data-i18n="products.categories.audio">ឧបករណ៍អូឌីយ៉ូ</option>
+                                    <option value="accessories" data-i18n="products.categories.accessories">គ្រឿងអេឡិចត្រូនិក</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
 
-                <!-- Product Categories Container -->
-                <div id="product-categories-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                    <!-- Products will be dynamically inserted here as a grid -->
+                        <!-- [UPDATED] Search Input -->
+                        <div class="mb-10 w-full relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                <i class="fas fa-search text-xl"></i>
+                            </span>
+                            <input type="text" id="product-search" placeholder="ស្វែងរកផលិតផល..." data-i18n-placeholder="products.searchPlaceholder" class="w-full p-3 pl-12 bg-gray-800 border-2 border-gray-600 rounded-lg shadow-inner focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-semibold text-lg text-gray-200">
+                        </div>
+
+                        <!-- Product Categories Container -->
+                        <div id="product-categories-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                            <!-- Products will be dynamically inserted here as a grid -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
     
+    <!-- [NEW] Mobile Bottom Navigation Bar -->
+    <nav id="mobile-bottom-nav" class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 flex items-center justify-around z-40">
+        <a href="index.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-home text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.home">ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="bottom-nav-link active flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-boxes text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.products">ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-envelope text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.contact">ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors relative">
+            <i class="fas fa-shopping-cart text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.cart">រទេះទំនិញ</span>
+            <span id="cart-count-bottom" class="absolute top-1 right-1/2 translate-x-3 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+        </a>
+    </nav>
+
     <footer class="bg-gray-950 text-white py-8 px-4 text-center">
         <div class="container mx-auto">
             <p class="mb-4" data-i18n="footer.copyright">&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
@@ -262,6 +440,35 @@
             </div>
         </div>
     </footer>
+
+    <!-- [NEW] Product Detail Modal -->
+    <div id="productModalOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-[100] hidden opacity-0"></div>
+    <div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 w-full max-w-4xl p-6 rounded-xl shadow-lg z-[101] hidden opacity-0 transform scale-95 max-h-[90vh] overflow-y-auto">
+        <button id="closeModalBtn" class="absolute top-4 right-5 text-gray-400 hover:text-white text-4xl font-light">&times;</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Image -->
+            <div class="flex flex-col items-center justify-center">
+                <img id="modal-product-image" src="https://placehold.co/600x600/374151/e5e7eb?text=Loading..." alt="Product" class="w-full max-w-sm object-cover rounded-lg">
+                <!-- [NEW] Image Gallery Thumbnails -->
+                <div id="modal-image-gallery" class="flex flex-wrap justify-center gap-3 mt-4">
+                    <!-- Thumbnails will be injected here by JS -->
+                </div>
+            </div>
+            <!-- Details -->
+            <div class="flex flex-col">
+                <h2 id="modal-product-name" class="text-3xl font-bold mb-4">...</h2>
+                <div class="mb-6">
+                    <p id="modal-product-price-khr" class="text-3xl font-extrabold text-blue-400">...</p>
+                    <p id="modal-product-price-usd" class="text-lg text-gray-400">...</p>
+                </div>
+                <h3 class="text-xl font-bold mb-2" data-i18n="productDetail.descriptionTitle">ការពិពណ៌នា</h3>
+                <p id="modal-product-description" class="text-gray-300 leading-relaxed mb-8 flex-grow">...</p>
+                <button id="modal-add-to-cart-btn" class="add-to-cart-btn bg-theme-primary hover:bg-theme-primary-dark text-white font-bold py-3 px-8 rounded-full w-full text-lg">
+                    <i class="fas fa-cart-plus mr-2"></i> <span data-i18n="cart.addToCart">បន្ថែមទៅរទេះ</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Add to Cart Message Box -->
     <div id="cartMessageBox" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-lg shadow-xl hidden transition-all duration-300 ease-in-out transform translate-y-4 opacity-0 z-[1000]">
@@ -277,21 +484,27 @@
                 pageTitle: 'SP E-STORE - ផលិតផល',
                 nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
                 products: { 
-                    heading: '🛒 ផលិតផលទាំងអស់ 📱', 
+                    heading: '🛒ផលិតផល🛍️', // [MODIFIED]
+                    subheading: 'ស្វែងរកផលិតផលដែលអ្នកត្រូវការ និងផលិតផលជាច្រើនទៀត', // [NEW]
                     searchPlaceholder: 'ស្វែងរកតាមឈ្មោះផលិតផល...',
                     noResults: 'រកមិនឃើញផលិតផលណាត្រូវនឹងការស្វែងរករបស់អ្នកទេ។',
                     categories: {
+                        title: 'ប្រភេទ', // [NEW]
                         all: 'ផលិតផលទាំងអស់',
-                        laptops: 'កុំព្យូទ័រយួរដៃ',
-                        phones: 'ទូរស័ព្ទដៃ',
-                        accessories: 'គ្រឿងបន្លាស់',
-                        tablets: 'ថេប្លេត',
+                        laptops: 'គ្រឿងបន្លាស់ Desktop', // [MODIFIED]
+                        phones: 'គ្រឿងបន្លាស់ Laptop', // [MODIFIED]
+                        accessories: 'គ្រឿងអេឡិចត្រូនិក', // [MODIFIED]
+                        tablets: 'Mouse & Keyboards', // [MODIFIED]
                         audio: 'ឧបករណ៍អូឌីយ៉ូ'
-                    }
+                    },
+                    viewDetail: 'មើលផលិតផល' // [NEW]
                 },
                 cart: { 
-                    addedToCartMessage: 'បានបន្ថែមទៅរទេះ! កំពុងបញ្ជូនទៅរទេះ...',
+                    addedToCartMessage: 'បានបន្ថែមទៅរទេះ!', // [MODIFIED]
                     addToCart: 'បន្ថែមទៅរទេះ'
+                },
+                productDetail: { // [NEW]
+                    descriptionTitle: 'ការពិពណ៌នា'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។', privacyPolicy: 'គោលការណ៍ឯកជនភាព', termsOfService: 'លក្ខខណ្ឌប្រើប្រាស់' }
             },
@@ -300,21 +513,27 @@
                 pageTitle: 'SP E-STORE - Products',
                 nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
                 products: { 
-                    heading: '🛒 All Products 📱',
+                    heading: '🛒Products🛍️', // [MODIFIED]
+                    subheading: 'Find the products you need and much more', // [NEW]
                     searchPlaceholder: 'Search by product name...',
                     noResults: 'No products found matching your search.',
                     categories: {
+                        title: 'Categories', // [NEW]
                         all: 'All Products',
-                        laptops: 'Laptops',
-                        phones: 'Smartphones',
-                        accessories: 'Accessories',
-                        tablets: 'Tablets',
+                        laptops: 'Desktop Accessories', // [MODIFIED]
+                        phones: 'Laptop Accessories', // [MODIFIED]
+                        accessories: 'Electronics', // [MODIFIED]
+                        tablets: 'Mouse & Keyboards', // [MODIFIED]
                         audio: 'Audio Devices'
-                    }
+                    },
+                    viewDetail: 'View Product' // [NEW]
                 },
                 cart: { 
-                    addedToCartMessage: 'Added to cart! Redirecting...',
+                    addedToCartMessage: 'Added to cart!', // [MODIFIED]
                     addToCart: 'Add to Cart'
+                },
+                productDetail: { // [NEW]
+                    descriptionTitle: 'Description'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
             },
@@ -323,44 +542,100 @@
                 pageTitle: 'SP E-STORE - 产品',
                 nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
                 products: { 
-                    heading: '🛒 所有产品 📱',
+                    heading: '🛒我们的产品🛍️', // [MODIFIED]
+                    subheading: '查找您需要的产品以及更多', // [NEW]
                     searchPlaceholder: '按产品名称搜索...',
                     noResults: '未找到符合您搜索的产品。',
                     categories: {
+                        title: '类别', // [NEW]
                         all: '所有产品',
-                        laptops: '笔记本电脑',
-                        phones: '智能手机',
-                        accessories: '配件',
-                        tablets: '平板电脑',
+                        laptops: '台式电脑配件', // [MODIFIED]
+                        phones: '笔记本电脑配件', // [MODIFIED]
+                        accessories: '电子产品', // [MODIFIED]
+                        tablets: '鼠标和键盘', // [MODIFIED]
                         audio: '音频设备'
-                    }
+                    },
+                    viewDetail: '查看产品' // [NEW]
                 },
                 cart: { 
-                    addedToCartMessage: '已添加到购物车！ 正在重定向...',
+                    addedToCartMessage: '已添加到购物车！', // [MODIFIED]
                     addToCart: '添加到购物车'
+                },
+                productDetail: { // [NEW]
+                    descriptionTitle: '描述'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE。 版权所有。', privacyPolicy: '隐私政策', termsOfService: '服务条款' }
             }
         };
         
-        // Product data (remains the same)
+        // [MODIFIED] Product data now replaced with new products from images
         const productData = [
-            { id: 1, category: 'laptops', name: {km: 'Laptop Dell XPS 15', en: 'Dell XPS 15 Laptop'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Dell+XPS+15', price: 6000000 },
-            { id: 2, category: 'laptops', name: {km: 'MacBook Pro 14"', en: 'MacBook Pro 14"'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=MacBook+Pro', price: 8000000 },
-            { id: 3, category: 'phones', name: {km: 'iPhone 15 Pro Max', en: 'iPhone 15 Pro Max'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=iPhone+15', price: 5200000 },
-            { id: 4, category: 'phones', name: {km: 'Samsung Galaxy S24 Ultra', en: 'Samsung Galaxy S24 Ultra'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Galaxy+S24', price: 5000000 },
-            { id: 5, category: 'audio', name: {km: 'Sony WH-1000XM5', en: 'Sony WH-1000XM5'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Sony+Headphones', price: 1600000 },
-            { id: 6, category: 'audio', name: {km: 'Apple AirPods Pro 2', en: 'Apple AirPods Pro 2'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=AirPods+Pro', price: 1000000 },
-            { id: 7, category: 'tablets', name: {km: 'iPad Pro 11"', en: 'iPad Pro 11"'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=iPad+Pro', price: 3200000 },
-            { id: 8, category: 'accessories', name: {km: 'Anker Power Bank 20,000mAh', en: 'Anker Power Bank 20,000mAh'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Power+Bank', price: 200000 },
-            { id: 9, category: 'accessories', name: {km: 'Logitech MX Master 3S', en: 'Logitech MX Master 3S'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Mouse', price: 400000 },
-            { id: 10, category: 'laptops', name: {km: 'Lenovo Yoga 9i', en: 'Lenovo Yoga 9i'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Lenovo+Yoga', price: 5000000 },
-            { id: 11, category: 'phones', name: {km: 'Google Pixel 8 Pro', en: 'Google Pixel 8 Pro'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=Pixel+8+Pro', price: 4000000 },
-            { id: 12, category: 'audio', name: {km: 'JBL Charge 5 Speaker', en: 'JBL Charge 5 Speaker'}, img: 'https://placehold.co/400x400/374151/e5e7eb?text=JBL+Speaker', price: 720000 },
+            {
+                id: 1,
+                category: 'tablets', // Mouse & Keyboards
+                name: {km: 'កណ្ដុរឥតខ្សែ Wireless Mouse', en: 'Wireless Mouse'},
+                images: [
+                    'Photo/Product/5.jpg', 
+                    'Photo/Product/55.jpg',
+                    'Photo/Product/555.jpg'
+                ],
+                price: 26000, // $6.5
+                description: {km: 'កណ្ដុរឥតខ្សែ Wireless Mouse ភ្ជាប់បច្ចេកវិទ្យា 5.2 Bluetooth និង 2.4G។ មានភ្លើង LED ស្អាត ថ្មទំហំ 500mAh អាចសាកថ្មបាន។', en: 'Wireless Mouse with 5.2 Bluetooth and 2.4G. Features RGB LED, and a 500mAh rechargeable battery.'}
+            },
+            {
+                id: 2,
+                category: 'audio',
+                name: {km: 'មីក្រូហ្វូន HK2 Microphone', en: 'HK2 Microphone'},
+                images: [
+                    'Photo/Product/1.jpg',
+                    'Photo/Product/11.jpg',
+                    'Photo/Product/111.jpg'
+                ],
+                price: 76000, // $19
+                description: {km: 'មីក្រូហ្វូន HK2 គុណភាពសំឡេងច្បាស់ ជាមួយបន្ទះឈីប AI និង DSP។ មានភ្លើង RGB ស្អាត និងខ្សែ USB TYPE-C 1.5M។ ថែមជូនកាសស្តាប់ត្រចៀក។', en: 'HK2 Microphone with clear audio, AI and DSP chip. Features beautiful RGB lighting and a 1.5M USB TYPE-C cable. Includes free earphones.'}
+            },
+            {
+                id: 3,
+                category: 'audio',
+                name: {km: 'មីក្រូហ្វូន HK2 + OTG', en: 'HK2 Microphone + OTG'},
+                images: [
+                    'Photo/Product/2.jpg',
+                    'Photo/Product/22.jpg',
+                    'Photo/Product/222.jpg'
+                ],
+                price: 82000, // $20.5
+                description: {km: 'ឈុតមីក្រូហ្វូន HK2 ថែមជូនកាសស្តាប់ត្រចៀក, ខ្សែ USB TYPE-C 1.5M, និងក្បាលត OTG ចំនួនពីរ (TYPE-C និង Lightning)។', en: 'HK2 Microphone set including earphones, 1.5M USB TYPE-C cable, and two OTG adapters (TYPE-C and Lightning).'}
+            },
+            {
+                id: 4,
+                category: 'audio',
+                name: {km: 'ឈុតធំ HK2+Stand', en: 'HK2 Microphone Full Set'},
+                images: [
+                    'Photo/Product/3.jpg',
+                    'Photo/Product/33.jpg',
+                    'Photo/Product/333.jpg'
+                ],
+                price: 102000, // $25.5
+                description: {km: 'ឈុតធំពិសេស! Mic HK2 ជាមួយនឹងជើងទ Microphone Stand, កាសស្តាប់, ខ្សែ USB-C, TYPE-C OTG, និង Lightning OTG។', en: 'Complete HK2 Microphone set! Includes the mic, microphone stand, earphones, USB-C cable, TYPE-C OTG, and Lightning OTG.'}
+            },
+            {
+                id: 5,
+                category: 'audio', // គ្រឿងអេឡិចត្រូនិក
+                name: {km: 'ជើងទម្រ មីក្រូហ្វូន​ (Stand)', en: 'Microphone Stand'},
+                images: [
+                    'Photo/Product/4.jpg',
+                    'Photo/Product/44.jpg',
+                    'Photo/Product/444.jpg'
+                ],
+                price: 30000, // $7.5
+                description: {km: 'ជើងទមីក្រូហ្វូន អាចបត់បែនបាន 360 ដឺក្រេ ធ្វើពីដែក រឹងមាំ ងាយស្រួលតំឡើង។', en: 'Flexible 360-degree microphone stand, made of strong metal, easy to install.'}
+            }
         ];
+
 
         let currentLang = localStorage.getItem('language') || 'km';
         let currentCategory = ''; // Store the currently active category
+        const KHR_TO_USD_RATE = 4000; // [NEW] Add conversion rate
         
         // --- TRANSLATION & UTILITIES ---
         function getTranslation(key, lang = currentLang) {
@@ -371,7 +646,7 @@
             }
             return text || key;
         }
-        
+
         // Updated setLanguage function
         function setLanguage(lang) {
             currentLang = lang;
@@ -385,19 +660,28 @@
                 
                 if (text) {
                     const icon = el.querySelector('i');
+                    // Handle nav links
                     if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
-                        const textNode = el.querySelector('span');
+                         const textNode = el.querySelector('span');
                         if (textNode) {
                             textNode.textContent = text;
                         }
-                    } else if (el.classList.contains('category-btn') || el.id === 'cartMessageBox' || el.tagName === 'P' || el.tagName === 'H2' || el.tagName === 'A') {
-                        // Handle elements that might just contain text
-                        el.innerHTML = text;
-                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.classList.contains('lang-toggle-button-mobile'))) {
+                    // Handle category buttons
+                    } else if (icon && el.classList.contains('category-btn')) {
+                         const textNode = el.querySelector('span');
+                        if (textNode) {
+                            textNode.textContent = text;
+                        } else {
+                            // Fallback for category button text
+                             el.innerHTML = icon.outerHTML + " " + `<span>${text}</span>`;
+                        }
+                    } else if (el.id === 'cartMessageBox') {
+                         el.querySelector('span').innerHTML = text;
+                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.id === 'lang-toggle-button-mobile' || el.parentElement.id === 'modal-add-to-cart-btn')) {
                         el.textContent = text; // Specific for mobile nav text
                     }
                     else {
-                        el.innerHTML = text; // Default case
+                        el.innerHTML = text; // Default case (H2, P, etc.)
                     }
                 }
             });
@@ -417,7 +701,6 @@
             filterProducts(currentCategory); 
         }
 
-        // NEW: updateLanguageSwitcher function (from index.html)
         function updateLanguageSwitcher() {
             const currentLangData = translations[currentLang];
             if (!currentLangData) return;
@@ -442,33 +725,41 @@
             });
         }
         
-        // Prices are in KHR, so we format them.
+        // [MODIFIED] Prices are in KHR, we will format both KHR and USD
         function formatPrice(khrValue) {
-            return `${Math.round(khrValue).toLocaleString('km-KH')}៛`;
+            const khrDisplay = `${Math.round(khrValue).toLocaleString('km-KH')}៛`;
+            const usdDisplay = `$${(khrValue / KHR_TO_USD_RATE).toFixed(2)}`;
+            // [NEW] Return an object with both formats
+            return { khr: khrDisplay, usd: usdDisplay };
         }
 
         // --- PRODUCT RENDERING & FILTERING ---
         function createProductCard(p) {
-            const priceDisplay = formatPrice(p.price);
+            const priceDisplay = formatPrice(p.price); // [MODIFIED] This is now an object
             // Get translated product name
             const productName = p.name[currentLang] || p.name['km']; 
             
+            // [MODIFIED] Change button to open modal
             let buttonsHtml = `
-                <button onclick="addToCart(${p.id})" class="add-to-cart-btn bg-theme-primary hover:bg-theme-primary-dark text-white font-bold py-2.5 px-5 rounded-full w-full">
-                    <i class="fas fa-cart-plus mr-2"></i> <span>${getTranslation('cart.addToCart')}</span>
+                <button onclick="openModal(${p.id})" class="add-to-cart-btn bg-theme-primary hover:bg-theme-primary-dark text-white font-bold py-2.5 px-5 rounded-full w-full inline-block">
+                    <i class="fas fa-eye mr-2"></i> <span>${getTranslation('products.viewDetail')}</span>
                 </button>
             `;
 
             return `
                 <div class="product-card p-3 sm:p-5 rounded-xl shadow-lg text-center flex flex-col justify-between">
                     <div>
-                        <img src="${p.img}" alt="${productName}" 
-                             class="w-full h-40 sm:h-56 object-cover rounded-lg mb-4" 
+                        <img src="${p.images[0]}" alt="${productName}" 
+                             class="w-full aspect-square object-cover rounded-lg mb-4" 
                              onerror="this.onerror=null;this.src='https://placehold.co/400x400/374151/e5e7eb?text=Image+Error';">
                         <h3 class="text-lg sm:text-xl font-bold mb-2 h-14 overflow-hidden">${productName}</h3>
                     </div>
                     <div>
-                        <p class="text-xl font-extrabold text-blue-400 mb-4">${priceDisplay}</p>
+                        <!-- [MODIFIED] Updated price display -->
+                        <div class="mb-4">
+                            <p class="text-xl font-extrabold text-blue-400">${priceDisplay.khr}</p>
+                            <p class="text-sm text-gray-400">${priceDisplay.usd}</p>
+                        </div>
                         <div class="space-y-2 mt-4">
                             ${buttonsHtml}
                         </div>
@@ -498,16 +789,40 @@
                 return;
             }
 
-            container.className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6';
+            // [UPDATED] Grid columns for new layout - Now 1 col on mobile, 2 on sm
+            container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6';
             filteredProducts.forEach(p => {
                 container.insertAdjacentHTML('beforeend', createProductCard(p));
             });
         }
         
         function filterProducts(category, btnElement = null) {
+            // Update active button visually
             if (btnElement) {
                 document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
                 btnElement.classList.add('active');
+            } else {
+                // If called without a button (e.g., from dropdown or lang change)
+                const activeBtn = document.querySelector(`.category-btn[onclick="filterProducts('${category}', this)"]`);
+                if (activeBtn) {
+                     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                     activeBtn.classList.add('active');
+                } else {
+                    // If category is '' (All), set 'All' button as active
+                    if (category === '') {
+                         const allBtn = document.querySelector(`.category-btn[onclick="filterProducts('', this)"]`);
+                         if (allBtn) {
+                             document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                             allBtn.classList.add('active');
+                         }
+                    }
+                }
+            }
+            
+            // [NEW] Sync dropdown
+            const categorySelect = document.getElementById('category-select');
+            if (categorySelect) {
+                categorySelect.value = category;
             }
             
             currentCategory = category;
@@ -516,7 +831,8 @@
         }
 
         // --- CART LOGIC ---
-        function addToCart(productId) {
+        // [NEW] This function is only for the modal
+        function modalAddToCart(productId) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const product = productData.find(p => p.id === productId);
             if (!product) return;
@@ -530,40 +846,135 @@
                     id: productId, 
                     name: product.name, 
                     price: product.price, 
-                    img: product.img, 
+                    img: product.images[0], 
                     quantity: 1 
                 });
             }
             
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount(); // Update count immediately
-            showCartMessageAndRedirect();
+            showCartMessage(); // Show message
+            closeModal(); // Close modal after adding
         }
 
         function updateCartCount() {
             const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCountElement = document.getElementById('cart-count');
+            const cartCountBottomElement = document.getElementById('cart-count-bottom'); // [NEW]
+            
+            const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+
             if (cartCountElement) {
-                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
                 cartCountElement.textContent = totalQuantity;
+            }
+
+            // [NEW] Update bottom nav cart count
+            if (cartCountBottomElement) { 
+                cartCountBottomElement.textContent = totalQuantity;
+                if (totalQuantity > 0) {
+                    cartCountBottomElement.classList.remove('hidden');
+                } else {
+                    cartCountBottomElement.classList.add('hidden');
+                }
             }
         }
         
         // --- UI Interactions ---
-        function showCartMessageAndRedirect() {
+        // [MODIFIED] Renamed and removed redirect
+        function showCartMessage() {
             const msgBox = document.getElementById('cartMessageBox');
             msgBox.querySelector('span').textContent = getTranslation('cart.addedToCartMessage');
             msgBox.classList.remove('hidden', 'translate-y-4', 'opacity-0');
             
             setTimeout(() => {
-                window.location.href = 'cart.html';
-            }, 1500);
+                msgBox.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => msgBox.classList.add('hidden'), 300);
+            }, 2000); // Hide after 2 seconds
         }
 
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
             document.body.classList.toggle('overflow-hidden');
         }
+
+        // --- [NEW] Modal Functions ---
+        const modal = document.getElementById('productModal');
+        const overlay = document.getElementById('productModalOverlay');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        function openModal(productId) {
+            const product = productData.find(p => p.id === productId);
+            if (!product) return;
+
+            // Populate modal content
+            const mainImage = document.getElementById('modal-product-image');
+            const galleryContainer = document.getElementById('modal-image-gallery');
+
+            // Clear previous gallery
+            galleryContainer.innerHTML = '';
+
+            // Check if product.images is an array and not empty
+            if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                // Set main image to the first image
+                mainImage.src = product.images[0];
+
+                // Populate gallery thumbnails
+                product.images.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgSrc;
+                    thumb.alt = `${product.name[currentLang] || product.name.km} thumbnail ${index + 1}`;
+                    thumb.className = 'gallery-thumbnail';
+                    
+                    if (index === 0) {
+                        thumb.classList.add('active'); // Set first thumbnail as active
+                    }
+                    
+                    // Add click event to change main image
+                    thumb.addEventListener('click', () => {
+                        mainImage.src = imgSrc;
+                        // Update active state
+                        document.querySelectorAll('#modal-image-gallery .gallery-thumbnail').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    });
+                    
+                    galleryContainer.appendChild(thumb);
+                });
+
+            } else {
+                // Fallback for old data structure (though we updated it, good to have)
+                mainImage.src = product.img || 'https://placehold.co/600x600/374151/e5e7eb?text=No+Image';
+            }
+            
+            document.getElementById('modal-product-name').textContent = product.name[currentLang] || product.name.km;
+            document.getElementById('modal-product-description').textContent = product.description[currentLang] || product.description.km;
+            
+            const price = formatPrice(product.price);
+            document.getElementById('modal-product-price-khr').textContent = price.khr;
+            document.getElementById('modal-product-price-usd').textContent = price.usd;
+
+            // Update cart button text and listener
+            const cartBtn = document.getElementById('modal-add-to-cart-btn');
+            cartBtn.querySelector('span').textContent = getTranslation('cart.addToCart');
+            cartBtn.onclick = () => modalAddToCart(product.id); // Set click listener dynamically
+
+            // Show modal
+            overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
+            setTimeout(() => { // Delay to allow CSS transition
+                overlay.classList.add('active');
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeModal() {
+            overlay.classList.remove('active');
+            modal.classList.remove('active');
+            setTimeout(() => { // Hide after transition
+                overlay.classList.add('hidden');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
 
         // --- NEW: Theme Toggle Logic (from index.html) ---
         function setTheme(theme) {
@@ -621,10 +1032,10 @@
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
-                if (langDropdownMenu && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                if (langDropdownMenu && langToggleButton && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
                     langDropdownMenu.classList.add('hidden');
                 }
-                if (langDropdownMenuMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
+                if (langDropdownMenuMobile && langToggleButtonMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
                     langDropdownMenuMobile.classList.add('hidden');
                 }
             });
@@ -653,19 +1064,31 @@
             if(productSearch) {
                 productSearch.addEventListener('input', () => filterProducts(currentCategory));
             }
+
+            // [NEW] Mobile Category Select Listener
+            const categorySelect = document.getElementById('category-select');
+            if (categorySelect) {
+                categorySelect.addEventListener('change', (e) => {
+                    filterProducts(e.target.value);
+                });
+            }
+
+            // --- [NEW] Modal Listeners ---
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+            if (overlay) overlay.addEventListener('click', closeModal);
             
             // --- Initial Load ---
-            const currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            const currentTheme = localStorage.getItem('theme') || 'light'; // Default to light
             setTheme(currentTheme); // Set theme first
             setLanguage(currentLang); // Set language (which also calls filterProducts)
             updateCartCount(); // Initial load
             
             // Set active category button visually without triggering re-render
-            document.querySelector('.category-btn').classList.add('active');
+            // This is handled by filterProducts now
         });
         
         // Make functions globally accessible from the HTML
-        window.addToCart = addToCart;
+        window.openModal = openModal;
         window.filterProducts = filterProducts;
     </script>
 </body>
