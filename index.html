@@ -58,6 +58,35 @@
             align-items: center;
             gap: 1rem; /* 16px */
         }
+
+        /* Category Card Hover Effect */
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        /* Product Card (Mini version for Home) */
+        .product-card-mini {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .product-card-mini:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-color: #3b82f6;
+        }
+        
+        /* Scrollbar Hiding Utilities */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
         
         /* --- Light Mode Overrides --- */
         html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
@@ -72,16 +101,19 @@
         
         html.light #home h1, html.light #home p { text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
         
-        html.light #about-us { background-color: #f9fafb; color: #111827; }
-        html.light #about-us h2 { color: #111827; }
-        html.light #about-us .feature-card { 
+        html.light .section-bg-alt { background-color: #f3f4f6; } /* Light gray for alternate sections */
+        html.light .section-bg-main { background-color: #ffffff; }
+
+        html.light h2 { color: #111827; }
+        html.light .feature-card, html.light .category-card, html.light .product-card-mini { 
             background-color: #ffffff; 
             color: #374151; /* text-gray-700 */
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); 
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); 
             border: 1px solid #e5e7eb;
         }
-        html.light #about-us .feature-card h3 { color: #1f2937; } /* text-gray-800 */
-        
+        html.light .feature-card h3, html.light .category-card h3, html.light .product-card-mini h3 { color: #1f2937; } /* text-gray-800 */
+        html.light .product-card-mini .price { color: #2563eb; }
+
         html.light footer { background-color: #1f2937; color: #e5e7eb; } /* bg-gray-800, text-gray-200 */
         html.light footer a { color: #d1d5db; } /* text-gray-300 */
         html.light footer a:hover { color: #ffffff; }
@@ -107,9 +139,95 @@
         html.light .lang-dropdown-item:hover {
             background-color: #f3f4f6; /* hover:bg-gray-100 */
         }
+
+        /* Add padding to body for bottom nav */
+        body {
+            padding-bottom: 80px; /* Height of the bottom nav */
+        }
+        @media (min-width: 768px) { /* md */
+            body {
+                padding-bottom: 0;
+            }
+        }
+
+        /* Mobile Bottom Nav */
+        .mobile-bottom-nav {
+            background-color: #1f2937; /* bg-gray-800 */
+            border-top: 1px solid #374151; /* border-gray-700 */
+        }
+        .bottom-nav-link {
+            color: #9ca3af; /* text-gray-400 */
+        }
+        .bottom-nav-link:hover {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
+            font-weight: 600;
+        }
+
+        /* Light Mode Bottom Nav */
+        html.light .mobile-bottom-nav {
+            background-color: #ffffff; /* bg-white */
+            border-top: 1px solid #e5e7eb; /* border-gray-200 */
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        html.light .bottom-nav-link {
+            color: #6b7280; /* text-gray-500 */
+        }
+        html.light .bottom-nav-link:hover {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
+        }
+
+        /* Floating Action Button (Theme) */
+        .theme-fab {
+            position: fixed;
+            bottom: 100px; /* Above bottom nav */
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            opacity: 0.8;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .theme-fab:hover {
+            background-color: #2563eb;
+            transform: scale(1.05);
+            opacity: 1;
+        }
+        @media (min-width: 768px) {
+            .theme-fab {
+                bottom: 24px;
+                width: 56px;
+                height: 56px;
+                opacity: 1;
+            }
+        }
+        html.light .theme-fab {
+            background-color: #4b5563;
+            color: #e5e7eb;
+        }
+        html.light .theme-fab:hover {
+             background-color: #374151;
+        }
+        
+        /* Background utility classes for sections in Dark Mode */
+        .section-bg-main { background-color: #111827; } /* gray-900 */
+        .section-bg-alt { background-color: #1f2937; } /* gray-800 */
     </style>
 </head>
 <body class="bg-gray-900 text-gray-300">
+    <!-- Nav Bar -->
     <nav class="bg-gray-800/90 backdrop-blur-lg shadow-md p-4 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-extrabold text-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
@@ -132,10 +250,6 @@
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
-                    <i class="fas fa-sun text-xl"></i>
-                </button>
                 
                 <!-- Language Dropdown (Desktop) -->
                 <div id="lang-dropdown-desktop" class="relative ml-2">
@@ -160,112 +274,246 @@
                 </div>
 
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-        </div>
-    </nav>
-
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
-        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2">
-            <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
-            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
-        </a>
-        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
-            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
-        </a>
-        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
-            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
-        </a>
-        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
-            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span>
-        </a>
-        <!-- Mobile Theme Toggle Button -->
-        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
-            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
-        </button>
-        
-        <!-- Language Dropdown (Mobile) -->
-        <div id="lang-dropdown-mobile" class="relative mt-4">
-            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
-                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
-                <span class="text-3xl font-semibold text-gray-200">ភាសា</span>
-                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
-            </button>
-            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
-                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
-                    <span class="text-lg">ខ្មែរ</span>
+            
+            <!-- Language Switcher for Mobile (Replaces the Hamburger Menu) -->
+            <div class="md:hidden relative">
+                <button id="mobile-header-lang-btn" class="flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none ring-blue-500">
+                    <img id="mobile-header-lang-flag" src="https://flagcdn.com/w40/kh.png" alt="Language" class="w-7 h-5 object-cover rounded-sm border border-gray-600">
                 </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
-                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
-                    <span class="text-lg">English</span>
-                </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
-                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
-                    <span class="text-lg">中文</span>
-                </button>
+                
+                <div id="mobile-header-lang-menu" class="lang-dropdown-menu hidden absolute right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                        <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">ខ្មែរ</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">English</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                        <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">中文</span>
+                    </button>
+                </div>
             </div>
         </div>
-
-    </div>
-
+    </nav>
+    
     <main>
         <!-- Hero Section with Video Background -->
-        <section id="home" class="relative text-white py-24 px-4 overflow-hidden min-h-[calc(100vh-80px)] flex items-center justify-center">
+        <section id="home" class="relative text-white py-24 px-4 overflow-hidden min-h-[60vh] lg:min-h-[80vh] flex items-center justify-center">
             <!-- Video Background -->
             <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
                 <source src="Video/Video 1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+                <!-- Fallback image if video doesn't load or mobile data saving -->
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80" alt="Tech Background" class="w-full h-full object-cover">
             </video>
-            <!-- Overlay for better text readability -->
-            <div class="absolute inset-0 bg-black/60 z-10"></div>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/70 z-10"></div>
             
             <!-- Hero Content -->
-            <div class="container mx-auto text-center relative z-20">
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-down" data-i18n="hero.title" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.4);">
+            <div class="container mx-auto text-center relative z-20 px-4">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-down bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500" data-i18n="hero.title" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.4);">
                     សូមស្វាគមន៍មកកាន់ SP E-STORE
                 </h1>
-                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up" data-i18n="hero.subtitle">
-                    ហាងលក់គ្រឿងអេឡិចត្រូនិកទំនើប ឈានមុខគេ ផ្ដល់ជូនគុណភាព និងតម្លៃដ៏ល្អបំផុត។
+                <p class="text-lg md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in-up text-gray-200" data-i18n="hero.subtitle">
+                    យើងខ្ញុំមានលក់គ្រឿងកុំព្យូទ័រ និងគ្រឿងអេឡិកត្រូនិចជាច្រើនទៀត ផ្ដល់ជូននូរគុណភាព និងតម្លៃសមរម្យ។
                 </p>
-                <a href="products.html" class="bg-blue-500 text-white hover:bg-blue-600 font-bold py-4 px-10 rounded-full shadow-xl transition-transform transform hover:scale-105 duration-300 inline-block text-lg animate-bounce-in" data-i18n="hero.button">
-                    ទិញទំនិញឥឡូវនេះ
+                <a href="products.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all transform hover:scale-105 duration-300 inline-flex items-center gap-2 text-lg animate-bounce-in">
+                    <i class="fas fa-shopping-bag"></i> <span data-i18n="hero.button">ទិញទំនិញឥឡូវនេះ</span>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Categories Section -->
+        <section id="categories" class="py-16 px-4 section-bg-alt">
+            <div class="container mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-10" data-i18n="categories.title">ប្រភេទផលិតផល</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <a href="products.html" class="category-card bg-gray-800 p-6 rounded-xl text-center border border-gray-700 flex flex-col items-center gap-4 group cursor-pointer">
+                        <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-mobile-alt text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold" data-i18n="categories.phone">Phone Accessories</h3>
+                    </a>
+                    <a href="products.html" class="category-card bg-gray-800 p-6 rounded-xl text-center border border-gray-700 flex flex-col items-center gap-4 group cursor-pointer">
+                        <div class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-desktop text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold" data-i18n="categories.pc">PC Accessories</h3>
+                    </a>
+                    <a href="products.html" class="category-card bg-gray-800 p-6 rounded-xl text-center border border-gray-700 flex flex-col items-center gap-4 group cursor-pointer">
+                        <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 group-hover:bg-green-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-microchip text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold" data-i18n="categories.electronics">Electronics</h3>
+                    </a>
+                    <a href="products.html" class="category-card bg-gray-800 p-6 rounded-xl text-center border border-gray-700 flex flex-col items-center gap-4 group cursor-pointer">
+                        <div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-th-large text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold" data-i18n="categories.more">More</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section (Horizontal Scroll) -->
+        <section id="featured" class="py-16 px-4 section-bg-main">
+            <div class="container mx-auto">
+                <div class="flex justify-between items-end mb-10">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2" data-i18n="featured.title">ផលិតផលពេញនិយម</h2>
+                        <p class="text-gray-400" data-i18n="featured.subtitle">ផលិតផលដែលអតិថិជនគាំទ្រច្រើនបំផុត</p>
+                    </div>
+                    <a href="products.html" class="text-blue-500 hover:text-blue-400 font-semibold hidden md:block" data-i18n="featured.viewAll">មើលទាំងអស់ <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+                
+                <!-- Swiper Container -->
+                <div class="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory no-scrollbar">
+                    
+                    <!-- Demo Product 1 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center product-card-mini bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 group">
+                        <div class="relative overflow-hidden aspect-square">
+                            <img src="Photo/Product/5.jpg" alt="Wireless Mouse" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='https://placehold.co/1080x1080/374151/e5e7eb?text=Mouse';">
+                            <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-10%</div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold mb-1 truncate">Wireless Mouse</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-blue-400 font-bold text-lg price">26,000៛</span>
+                                <a href="products.html" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors shadow-md">
+                                    <i class="fas fa-shopping-cart text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Demo Product 2 -->
+                     <div class="flex-shrink-0 w-72 sm:w-80 snap-center product-card-mini bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 group">
+                        <div class="relative overflow-hidden aspect-square">
+                            <img src="Photo/Product/1.jpg" alt="HK2 Microphone" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='https://placehold.co/1080x1080/374151/e5e7eb?text=Mic';">
+                            <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold mb-1 truncate">HK2 Microphone</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-blue-400 font-bold text-lg price">76,000៛</span>
+                                <a href="products.html" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors shadow-md">
+                                    <i class="fas fa-shopping-cart text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Demo Product 3 -->
+                     <div class="flex-shrink-0 w-72 sm:w-80 snap-center product-card-mini bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 group">
+                        <div class="relative overflow-hidden aspect-square">
+                            <img src="Photo/Product/3.jpg" alt="HK2 Full Set" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='https://placehold.co/1080x1080/374151/e5e7eb?text=Set';">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold mb-1 truncate">HK2 Full Set</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-blue-400 font-bold text-lg price">102,000៛</span>
+                                <a href="products.html" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors shadow-md">
+                                    <i class="fas fa-shopping-cart text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Demo Product 4 -->
+                     <div class="flex-shrink-0 w-72 sm:w-80 snap-center product-card-mini bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700 group">
+                        <div class="relative overflow-hidden aspect-square">
+                            <img src="Photo/Product/4.jpg" alt="Microphone Stand" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null;this.src='https://placehold.co/1080x1080/374151/e5e7eb?text=Stand';">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold mb-1 truncate">Microphone Stand</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-blue-400 font-bold text-lg price">30,000៛</span>
+                                <a href="products.html" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors shadow-md">
+                                    <i class="fas fa-shopping-cart text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="mt-4 text-center md:hidden">
+                    <a href="products.html" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-6 rounded-full text-sm font-semibold transition-colors" data-i18n="featured.viewAll">មើលទាំងអស់</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promotion Banner -->
+        <section id="promo" class="py-20 relative overflow-hidden">
+             <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80" alt="Gaming Setup" class="w-full h-full object-cover opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/80"></div>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10 text-center text-white">
+                <span class="inline-block py-1 px-3 rounded-full bg-red-500 text-white text-xs font-bold mb-4 uppercase tracking-wider" data-i18n="promo.tag">Limited Offer</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight" data-i18n="promo.title">បញ្ចុះតម្លៃពិសេសរហូតដល់ 50%</h2>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto" data-i18n="promo.desc">សម្រាប់រាល់ការទិញគ្រឿង Gaming Gear ក្នុងខែនេះ។ រួសរាន់ឡើង!</p>
+                <a href="products.html" class="bg-white text-blue-900 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 inline-block" data-i18n="promo.button">
+                    ពិនិត្យមើលឥឡូវនេះ
                 </a>
             </div>
         </section>
         
         <!-- About Us Section -->
-        <section id="about-us" class="py-20 px-4 bg-gray-900 text-gray-300">
+        <section id="about-us" class="py-20 px-4 section-bg-alt">
             <div class="container mx-auto">
                 <h2 class="text-4xl font-bold text-center mb-12" data-i18n="about.title">អំពី SP E-STORE</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
                     <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
-                        <i class="fas fa-shipping-fast text-blue-400 text-5xl mb-6"></i>
+                        <div class="w-20 h-20 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-6 text-blue-400">
+                            <i class="fas fa-shipping-fast text-4xl"></i>
+                        </div>
                         <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature1.title">ដឹកជញ្ជូនលឿនរហ័ស</h3>
-                        <p data-i18n="about.feature1.desc">សេវាកម្មដឹកជញ្ជូនទាន់ចិត្ត ទូទាំងប្រទេស។ ទទួលបានទំនិញរបស់អ្នកក្នុងរយៈពេលខ្លីបំផុត។</p>
+                        <p class="text-gray-400" data-i18n="about.feature1.desc">សេវាកម្មដឹកជញ្ជូនទាន់ចិត្ត ទូទាំងប្រទេស។ ទទួលបានទំនិញរបស់អ្នកក្នុងរយៈពេលខ្លីបំផុត។</p>
                     </div>
                     <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
-                        <i class="fas fa-check-circle text-blue-400 text-5xl mb-6"></i>
+                        <div class="w-20 h-20 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-6 text-green-400">
+                            <i class="fas fa-check-circle text-4xl"></i>
+                        </div>
                         <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature2.title">គុណភាពធានា</h3>
-                        <p data-i18n="about.feature2.desc">ផលិតផលសុទ្ធ 100% ពីក្រុមហ៊ុន ជាមួយនឹងការធានាត្រឹមត្រូវ និងសេវាកម្មជួសជុល។</p>
+                        <p class="text-gray-400" data-i18n="about.feature2.desc">ផលិតផលសុទ្ធ 100% ពីក្រុមហ៊ុន ជាមួយនឹងការធានាត្រឹមត្រូវ និងសេវាកម្មជួសជុល។</p>
                     </div>
                     <div class="feature-card bg-gray-800 p-8 rounded-lg shadow-lg transform transition-transform hover:scale-105">
-                        <i class="fas fa-headset text-blue-400 text-5xl mb-6"></i>
+                         <div class="w-20 h-20 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-6 text-purple-400">
+                            <i class="fas fa-headset text-4xl"></i>
+                        </div>
                         <h3 class="text-2xl font-bold mb-3" data-i18n="about.feature3.title">សេវាកម្មអតិថិជន 24/7</h3>
-                        <p data-i18n="about.feature3.desc">ក្រុមការងារយើងខ្ញុំ ត្រៀមខ្លួនជានិច្ចដើម្បីឆ្លើយតបគ្រប់ចម្ងល់ និងដោះស្រាយបញ្ហារបស់អ្នក។</p>
+                        <p class="text-gray-400" data-i18n="about.feature3.desc">ក្រុមការងារយើងខ្ញុំ ត្រៀមខ្លួនជានិច្ចដើម្បីឆ្លើយតបគ្រប់ចម្ងល់ និងដោះស្រាយបញ្ហារបស់អ្នក។</p>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
+    
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav id="mobile-bottom-nav" class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 flex items-center justify-around z-40">
+        <a href="index.html" class="bottom-nav-link active flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-home text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.home">ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-boxes text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.products">ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-envelope text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.contact">ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors relative">
+            <i class="fas fa-shopping-cart text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.cart">រទេះទំនិញ</span>
+            <span id="cart-count-bottom" class="absolute top-1 right-1/2 translate-x-3 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+        </a>
+    </nav>
 
     <footer class="bg-gray-950 text-white py-8 px-4 text-center">
         <div class="container mx-auto">
@@ -277,6 +525,11 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Floating Action Button for Theme -->
+    <button id="theme-toggle-fab" class="theme-fab">
+        <i class="fas fa-sun text-xl md:text-2xl"></i>
+    </button>
 
     <script>
         // --- START OF SHARED SCRIPT ---
@@ -286,8 +539,26 @@
                 nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
                 hero: {
                     title: 'សូមស្វាគមន៍មកកាន់ SP E-STORE',
-                    subtitle: 'ហាងលក់គ្រឿងអេឡិចត្រូនិកទំនើប ឈានមុខគេ ផ្ដល់ជូនគុណភាព និងតម្លៃដ៏ល្អបំផុត។',
+                    subtitle: 'យើងខ្ញុំមានលក់គ្រឿងកុំព្យូទ័រ និងគ្រឿងអេឡិកត្រូនិចជាច្រើនទៀត ផ្ដល់ជូននូរគុណភាព និងតម្លៃសមរម្យ។',
                     button: 'ទិញទំនិញឥឡូវនេះ'
+                },
+                categories: {
+                    title: 'ប្រភេទផលិតផល',
+                    phone: 'គ្រឿងបន្លាស់ទូរស័ព្ទ',
+                    pc: 'គ្រឿងបន្លាស់កុំព្យូទ័រ',
+                    electronics: 'គ្រឿងអេឡិចត្រូនិក',
+                    more: 'ផ្សេងៗទៀត'
+                },
+                featured: {
+                    title: 'ផលិតផលពេញនិយម',
+                    subtitle: 'ផលិតផលដែលអតិថិជនគាំទ្រច្រើនបំផុត',
+                    viewAll: 'មើលទាំងអស់'
+                },
+                promo: {
+                    tag: 'ការផ្តល់ជូនមានកំណត់',
+                    title: 'បញ្ចុះតម្លៃពិសេសរហូតដល់ 50%',
+                    desc: 'សម្រាប់រាល់ការទិញគ្រឿង Gaming Gear ក្នុងខែនេះ។ រួសរាន់ឡើង!',
+                    button: 'ពិនិត្យមើលឥឡូវនេះ'
                 },
                 about: {
                     title: 'អំពី SP E-STORE',
@@ -305,6 +576,24 @@
                     subtitle: 'The leading modern electronics store, offering the best quality and value.',
                     button: 'Shop Now'
                 },
+                categories: {
+                    title: 'Shop by Category',
+                    phone: 'Phone Accessories',
+                    pc: 'PC Accessories',
+                    electronics: 'Electronics',
+                    more: 'More'
+                },
+                featured: {
+                    title: 'Featured Products',
+                    subtitle: 'Products most loved by our customers',
+                    viewAll: 'View All'
+                },
+                 promo: {
+                    tag: 'Limited Offer',
+                    title: 'Special Discount up to 50%',
+                    desc: 'For all Gaming Gear purchases this month. Hurry up!',
+                    button: 'Check Now'
+                },
                 about: {
                     title: 'About SP E-STORE',
                     feature1: { title: 'Fast Delivery', desc: 'Prompt delivery service nationwide. Get your items in the shortest time.' },
@@ -313,13 +602,31 @@
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
             },
-            zh: { // Added Chinese translations
+            zh: { 
                 lang: { flag: 'https://flagcdn.com/w40/cn.png' },
                 nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
                 hero: {
                     title: '欢迎来到 SP E-STORE',
                     subtitle: '领先的现代电子商店，提供最好的质量和价值。',
                     button: '立即选购'
+                },
+                categories: {
+                    title: '按类别选购',
+                    phone: '手机配件',
+                    pc: '电脑配件',
+                    electronics: '电子产品',
+                    more: '更多'
+                },
+                featured: {
+                    title: '精选产品',
+                    subtitle: '客户最喜爱的产品',
+                    viewAll: '查看全部'
+                },
+                promo: {
+                    tag: '限时优惠',
+                    title: '特别优惠高达 50%',
+                    desc: '本月购买所有游戏装备。 快点！',
+                    button: '立即查看'
                 },
                 about: {
                     title: '关于 SP E-STORE',
@@ -332,7 +639,6 @@
         };
 
         let currentLang = localStorage.getItem('language') || 'km';
-        // let cart = JSON.parse(localStorage.getItem('cart')) || []; // Cart is managed in local storage
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -349,12 +655,10 @@
                 }
                 if (text) {
                     const icon = el.querySelector('i');
-                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
+                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link') || el.classList.contains('bottom-nav-link'))) {
                          const textNode = el.querySelector('span');
                         if (textNode) {
                             textNode.textContent = text;
-                        } else {
-                            el.innerHTML = icon.outerHTML + " " + text;
                         }
                     } else if (el.id === 'cart-count') {
                         // Don't change cart count
@@ -366,73 +670,89 @@
             
             // Update language switcher
             updateLanguageSwitcher();
-            
-            // Close dropdowns
-            document.getElementById('lang-dropdown-menu').classList.add('hidden');
-            document.getElementById('lang-dropdown-menu-mobile').classList.add('hidden');
         }
         
-        // Updated function to handle dropdown state
         function updateLanguageSwitcher() {
             const currentLangData = translations[currentLang];
             if (!currentLangData) return;
 
             // Update toggle button flags
             document.getElementById('lang-toggle-flag').src = currentLangData.lang.flag;
-            document.getElementById('lang-toggle-flag-mobile').src = currentLangData.lang.flag;
-
-            // Update mobile toggle button text
-            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
-            if (mobileLangText) {
-                mobileLangText.textContent = currentLangData.nav.language;
-            }
+            const mobileHeaderFlag = document.getElementById('mobile-header-lang-flag');
+            if(mobileHeaderFlag) mobileHeaderFlag.src = currentLangData.lang.flag;
 
             // Show/hide items in dropdowns
             document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
                 if (btn.dataset.lang === currentLang) {
-                    btn.classList.add('hidden'); // Hide selected language
+                    btn.classList.add('hidden'); 
                 } else {
                     btn.classList.remove('hidden');
                 }
             });
         }
 
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
         function updateCartCount() {
             const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCountElement = document.getElementById('cart-count');
+            const cartCountBottomElement = document.getElementById('cart-count-bottom');
+
+            const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+            
             if (cartCountElement) {
-                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
                 cartCountElement.textContent = totalQuantity;
+            }
+
+            if (cartCountBottomElement) { 
+                cartCountBottomElement.textContent = totalQuantity;
+                if (totalQuantity > 0) {
+                    cartCountBottomElement.classList.remove('hidden');
+                } else {
+                    cartCountBottomElement.classList.add('hidden');
+                }
             }
         }
         
+        // --- Theme Toggle Logic ---
+        function setTheme(theme) {
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
+            const htmlEl = document.documentElement;
+
+            if (theme === 'light') {
+                htmlEl.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-moon text-xl md:text-2xl"></i>';
+            } else {
+                htmlEl.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-sun text-xl md:text-2xl"></i>';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Listeners ---
-            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
-            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
-            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', toggleMobileMenu));
             
             // --- Language Dropdown Listeners ---
             const langToggleButton = document.getElementById('lang-toggle-button');
             const langDropdownMenu = document.getElementById('lang-dropdown-menu');
-            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
-            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
-
-            langToggleButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                langDropdownMenu.classList.toggle('hidden');
-            });
             
-            langToggleButtonMobile.addEventListener('click', (e) => {
-                e.stopPropagation();
-                langDropdownMenuMobile.classList.toggle('hidden');
-            });
+            // Mobile Header Language Toggle
+            const mobileHeaderLangBtn = document.getElementById('mobile-header-lang-btn');
+            const mobileHeaderLangMenu = document.getElementById('mobile-header-lang-menu');
+
+            if(langToggleButton) {
+                langToggleButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langDropdownMenu.classList.toggle('hidden');
+                    if(mobileHeaderLangMenu) mobileHeaderLangMenu.classList.add('hidden');
+                });
+            }
+            
+            if(mobileHeaderLangBtn) {
+                mobileHeaderLangBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileHeaderLangMenu.classList.toggle('hidden');
+                    if(langDropdownMenu) langDropdownMenu.classList.add('hidden');
+                });
+            }
 
             document.querySelectorAll('.lang-dropdown-item').forEach(button => {
                 button.addEventListener('click', () => {
@@ -442,54 +762,29 @@
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
-                if (!langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                if (langDropdownMenu && !langDropdownMenu.classList.contains('hidden')) {
                     langDropdownMenu.classList.add('hidden');
                 }
-                if (!langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
-                    langDropdownMenuMobile.classList.add('hidden');
+                if (mobileHeaderLangMenu && !mobileHeaderLangMenu.classList.contains('hidden')) {
+                    mobileHeaderLangMenu.classList.add('hidden');
                 }
             });
 
-            // --- Theme Toggle Logic ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-            const htmlEl = document.documentElement;
-
-            function setTheme(theme) {
-                const mobileIcon = themeToggleMobile.querySelector('i');
-                if (theme === 'light') {
-                    htmlEl.classList.add('light');
-                    localStorage.setItem('theme', 'light');
-                    themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
-                    if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
-                } else {
-                    htmlEl.classList.remove('light');
-                    localStorage.setItem('theme', 'dark');
-                    themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
-                    if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
-                }
+            // --- Theme Toggle FAB Listener ---
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
+            if(themeToggleFab) {
+                themeToggleFab.addEventListener('click', () => {
+                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+                    setTheme(newTheme);
+                });
             }
 
-            const currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
-            setTheme(currentTheme);
-
-            themeToggle.addEventListener('click', () => {
-                const newTheme = htmlEl.classList.contains('light') ? 'dark' : 'light';
-                setTheme(newTheme);
-            });
-
-            themeToggleMobile.addEventListener('click', () => {
-                const newTheme = htmlEl.classList.contains('light') ? 'dark' : 'light';
-                setTheme(newTheme);
-                // Don't close mobile menu, just toggle theme
-            });
-
             // --- Initial Load ---
-            setLanguage(currentLang); // This will also call updateLanguageSwitcher
-            updateCartCount(); // Initial count load
+            const currentTheme = localStorage.getItem('theme') || 'light'; 
+            setTheme(currentTheme); 
+            setLanguage(currentLang); 
+            updateCartCount();
         });
-        // --- END OF SHARED SCRIPT ---
     </script>
 </body>
 </html>
-
