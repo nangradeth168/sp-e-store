@@ -15,7 +15,7 @@
             -moz-osx-font-smoothing: grayscale;
             background-color: #111827; /* bg-gray-900 */
             color: #d1d5db; /* text-gray-300 */
-            transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         html { scroll-behavior: smooth; }
         .text-theme-primary { color: #3b82f6; }
@@ -50,7 +50,7 @@
             gap: 1rem; /* 16px */
         }
         
-        /* [UPDATED] Category Button Styling */
+        /* Category Button Styling */
         .category-btn {
             padding: 10px 16px; /* 10px top/bottom, 16px left/right */
             border-radius: 0.5rem; /* 8px */
@@ -80,7 +80,7 @@
             text-align: center;
         }
         
-        /* [NEW] Modal Styles */
+        /* Modal Styles */
         #productModalOverlay {
             transition: opacity 0.3s ease;
         }
@@ -105,7 +105,7 @@
             color: #111827;
         }
 
-        /* [NEW] Gallery Thumbnail Styles */
+        /* Gallery Thumbnail Styles */
         .gallery-thumbnail {
             width: 60px;
             height: 60px;
@@ -136,17 +136,13 @@
         }
 
 
-        /* --- Light Mode Overrides (Copied from index.html) --- */
-        html.light body { background-color: #f9fafb; color: #111827; } /* bg-gray-50, text-gray-900 */
-        html.light nav { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e5e7eb; } /* bg-white/90, border-gray-200 */
-        html.light nav a, html.light nav button.nav-link, html.light nav button#theme-toggle { color: #374151; } /* text-gray-700 */
-        html.light nav a:hover, html.light nav button.nav-link:hover, html.light nav button#theme-toggle:hover { background-color: #f3f4f6; color: #3b82f6; } /* hover:bg-gray-100, hover:text-blue-500 */
-        html.light nav a.bg-blue-600 { background-color: #3b82f6; color: #ffffff; } /* Active nav link */
+        /* --- Light Mode Overrides --- */
+        html.light body { background-color: #f9fafb; color: #111827; }
+        html.light nav { background-color: rgba(255, 255, 255, 0.9); border-bottom: 1px solid #e5e7eb; }
+        html.light nav a, html.light nav button.nav-link, html.light nav button#theme-toggle { color: #374151; }
+        html.light nav a:hover, html.light nav button.nav-link:hover, html.light nav button#theme-toggle:hover { background-color: #f3f4f6; color: #3b82f6; }
+        html.light nav a.bg-blue-600 { background-color: #3b82f6; color: #ffffff; }
         
-        html.light #mobile-menu { background-color: rgba(255, 255, 255, 0.95); }
-        html.light #mobile-menu a, html.light #mobile-menu button { color: #1f2937; } /* text-gray-800 */
-        html.light #mobile-menu a:hover, html.light #mobile-menu button:hover { color: #3b82f6; }
-
         /* Light mode for product page */
         html.light .product-card { 
             background-color: #ffffff; 
@@ -156,17 +152,17 @@
         }
         html.light .product-card h3 { color: #1f2937; }
         
-        /* [UPDATED] Light mode category buttons */
+        /* Light mode category buttons */
         html.light .category-btn { background-color: #e5e7eb; color: #374151; }
         html.light .category-btn:hover { background-color: #d1d5db; color: #1f2937; }
         html.light .category-btn.active { background-color: #3b82f6; color: #ffffff; border-color: #60a5fa; }
         
-        /* [UPDATED] Light mode search box */
+        /* Light mode search box */
         html.light #product-search { background-color: #ffffff; border-color: #d1d5db; color: #1f2937; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
         html.light #product-search::placeholder { color: #6b7280; }
         html.light #product-search:focus { background-color: #ffffff; }
 
-        /* [NEW] Light mode for mobile select */
+        /* Light mode for mobile select */
         html.light #category-select {
             background-color: #ffffff;
             border-color: #d1d5db;
@@ -176,11 +172,11 @@
             background-color: #ffffff;
         }
 
-        html.light footer { background-color: #1f2937; color: #e5e7eb; } /* bg-gray-800, text-gray-200 */
-        html.light footer a { color: #d1d5db; } /* text-gray-300 */
+        html.light footer { background-color: #1f2937; color: #e5e7eb; }
+        html.light footer a { color: #d1d5db; }
         html.light footer a:hover { color: #ffffff; }
 
-        /* --- Language Dropdown Styles (Copied from index.html) --- */
+        /* --- Language Dropdown Styles --- */
         .lang-dropdown-menu {
             background-color: #1f2937; /* bg-gray-800 */
             border: 1px solid #374151; /* border-gray-700 */
@@ -202,7 +198,6 @@
             background-color: #f3f4f6; /* hover:bg-gray-100 */
         }
 
-        /* [NEW] Add padding to body for bottom nav */
         body {
             padding-bottom: 80px; /* Height of the bottom nav */
         }
@@ -212,7 +207,7 @@
             }
         }
 
-        /* [NEW] Mobile Bottom Nav */
+        /* Mobile Bottom Nav */
         .mobile-bottom-nav {
             background-color: #1f2937; /* bg-gray-800 */
             border-top: 1px solid #374151; /* border-gray-700 */
@@ -228,7 +223,7 @@
             font-weight: 600;
         }
 
-        /* [NEW] Light Mode Bottom Nav */
+        /* Light Mode Bottom Nav */
         html.light .mobile-bottom-nav {
             background-color: #ffffff; /* bg-white */
             border-top: 1px solid #e5e7eb; /* border-gray-200 */
@@ -242,6 +237,45 @@
         }
         html.light .bottom-nav-link.active {
             color: #3b82f6; /* text-blue-500 */
+        }
+
+        /* Floating Action Button (Theme) */
+        .theme-fab {
+            position: fixed;
+            bottom: 100px; /* Above bottom nav */
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            opacity: 0.8;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .theme-fab:hover {
+            background-color: #2563eb;
+            transform: scale(1.05);
+            opacity: 1;
+        }
+        @media (min-width: 768px) {
+            .theme-fab {
+                bottom: 24px;
+                width: 56px;
+                height: 56px;
+                opacity: 1;
+            }
+        }
+        html.light .theme-fab {
+            background-color: #4b5563;
+            color: #e5e7eb;
+        }
+        html.light .theme-fab:hover {
+             background-color: #374151;
         }
     </style>
 </head>
@@ -269,10 +303,6 @@
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
-                    <i class="fas fa-sun text-xl"></i>
-                </button>
                 
                 <!-- Language Dropdown (Desktop) -->
                 <div id="lang-dropdown-desktop" class="relative ml-2">
@@ -297,85 +327,67 @@
                 </div>
 
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Updated Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
-        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        
-        <!-- [REMOVED] Navigation links are now in the bottom bar -->
-
-        <!-- Mobile Theme Toggle Button -->
-        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
-            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
-        </button>
-        
-        <!-- Language Dropdown (Mobile) -->
-        <div id="lang-dropdown-mobile" class="relative mt-4">
-            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
-                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
-                <span class="text-3xl font-semibold text-gray-200" data-i18n="nav.language">ភាសា</span>
-                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
-            </button>
-            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
-                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
-                    <span class="text-lg">ខ្មែរ</span>
+            
+            <!-- Language Switcher for Mobile (Replaces the Hamburger Menu) -->
+            <div class="md:hidden relative">
+                <button id="mobile-header-lang-btn" class="flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none ring-blue-500">
+                    <img id="mobile-header-lang-flag" src="https://flagcdn.com/w40/kh.png" alt="Language" class="w-7 h-5 object-cover rounded-sm border border-gray-600">
                 </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
-                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
-                    <span class="text-lg">English</span>
-                </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
-                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
-                    <span class="text-lg">中文</span>
-                </button>
+                
+                <div id="mobile-header-lang-menu" class="lang-dropdown-menu hidden absolute right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                        <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">ខ្មែរ</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">English</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                        <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">中文</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
     
     <main>
        <section id="products-list" class="py-16 px-4">
             <div class="container mx-auto">
-                <!-- [NEW] Title and Subtitle -->
+                <!-- Title and Subtitle -->
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold mb-2" data-i18n="products.heading">🛒ផលិតផល🛍️</h2>
                     <p class="text-lg text-gray-400" data-i18n="products.subheading">ស្វែងរកផលិតផលដែលអ្នកត្រូវការ និងផលិតផលជាច្រើនទៀត</p>
                 </div>
                 
-                <!-- [NEW] Two-column layout -->
+                <!-- Two-column layout -->
                 <div class="flex flex-col md:flex-row">
                     
-                    <!-- [NEW] Sidebar for Categories - Hidden on mobile -->
+                    <!-- Sidebar for Categories - Hidden on mobile -->
                     <aside class="w-full md:w-1/4 lg:w-1/5 mb-8 md:mb-0 md:pr-6 hidden md:block">
                         <h3 class="text-2xl font-bold mb-4" data-i18n="products.categories.title">ប្រភេទ</h3>
-                        <!-- [UPDATED] Category Filter Buttons - Removed unused categories -->
+                        <!-- Category Filter Buttons -->
                         <div id="category-buttons" class="flex flex-col space-y-2">
                             <button class="category-btn active" onclick="filterProducts('', this)" data-i18n="products.categories.all">
                                 <i class="fas fa-boxes"></i> <span>ផលិតផលទាំងអស់</span>
                             </button>
-                            <!-- Category 'laptops' (Desktop) removed as no products match -->
-                            <!-- Category 'phones' (Laptop) removed as no products match -->
                             <button class="category-btn" onclick="filterProducts('tablets', this)" data-i18n="products.categories.tablets">
-                                <i class="fas fa-keyboard"></i> <span>Mouse & Keyboards</span> <!-- MODIFIED -->
+                                <i class="fas fa-keyboard"></i> <span>Mouse & Keyboards</span>
                             </button>
                             <button class="category-btn" onclick="filterProducts('audio', this)" data-i18n="products.categories.audio">
-                                <i class="fas fa-headphones"></i> <span>ឧបករណ៍អូឌីយ៉ូ</span>
+                                <i class="fas fa-headphones"></i> <span>Audio Devices</span>
                             </button>
                             <button class="category-btn" onclick="filterProducts('accessories', this)" data-i18n="products.categories.accessories">
-                                <i class="fas fa-microchip"></i> <span>គ្រឿងអេឡិចត្រូនិក</span> <!-- MODIFIED -->
+                                <i class="fas fa-microchip"></i> <span>Electronics</span>
                             </button>
                         </div>
                     </aside>
 
-                    <!-- [NEW] Main Product Grid -->
+                    <!-- Main Product Grid -->
                     <div class="w-full md:w-3/4 lg:w-4/5 md:pl-6">
                         
-                        <!-- [NEW] Mobile Category Filter Dropdown -->
+                        <!-- Mobile Category Filter Dropdown -->
                         <div class="md:hidden mb-8">
                             <h3 class="text-2xl font-bold mb-4" data-i18n="products.categories.title">ប្រភេទ</h3>
                             <div class="relative">
@@ -391,7 +403,7 @@
                             </div>
                         </div>
 
-                        <!-- [UPDATED] Search Input -->
+                        <!-- Search Input -->
                         <div class="mb-10 w-full relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
                                 <i class="fas fa-search text-xl"></i>
@@ -409,7 +421,7 @@
         </section>
     </main>
     
-    <!-- [NEW] Mobile Bottom Navigation Bar -->
+    <!-- Mobile Bottom Navigation Bar -->
     <nav id="mobile-bottom-nav" class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 flex items-center justify-around z-40">
         <a href="index.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
             <i class="fas fa-home text-2xl mb-1"></i>
@@ -440,8 +452,13 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Floating Action Button for Theme -->
+    <button id="theme-toggle-fab" class="theme-fab">
+        <i class="fas fa-sun text-xl md:text-2xl"></i>
+    </button>
 
-    <!-- [NEW] Product Detail Modal -->
+    <!-- Product Detail Modal -->
     <div id="productModalOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-[100] hidden opacity-0"></div>
     <div id="productModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 w-full max-w-4xl p-6 rounded-xl shadow-lg z-[101] hidden opacity-0 transform scale-95 max-h-[90vh] overflow-y-auto">
         <button id="closeModalBtn" class="absolute top-4 right-5 text-gray-400 hover:text-white text-4xl font-light">&times;</button>
@@ -449,7 +466,7 @@
             <!-- Image -->
             <div class="flex flex-col items-center justify-center">
                 <img id="modal-product-image" src="https://placehold.co/600x600/374151/e5e7eb?text=Loading..." alt="Product" class="w-full max-w-sm object-cover rounded-lg">
-                <!-- [NEW] Image Gallery Thumbnails -->
+                <!-- Image Gallery Thumbnails -->
                 <div id="modal-image-gallery" class="flex flex-wrap justify-center gap-3 mt-4">
                     <!-- Thumbnails will be injected here by JS -->
                 </div>
@@ -458,8 +475,13 @@
             <div class="flex flex-col">
                 <h2 id="modal-product-name" class="text-3xl font-bold mb-4">...</h2>
                 <div class="mb-6">
-                    <p id="modal-product-price-khr" class="text-3xl font-extrabold text-blue-400">...</p>
-                    <p id="modal-product-price-usd" class="text-lg text-gray-400">...</p>
+                     <!-- Original Price Placeholder -->
+                     <p id="modal-product-original-price" class="text-lg text-gray-500 line-through mb-1 hidden">...</p>
+                     <!-- Active Prices -->
+                    <div class="flex items-baseline gap-2">
+                        <p id="modal-product-price-usd" class="text-3xl font-extrabold text-blue-400">...</p>
+                        <p id="modal-product-price-khr" class="text-xl text-gray-400">...</p>
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold mb-2" data-i18n="productDetail.descriptionTitle">ការពិពណ៌នា</h3>
                 <p id="modal-product-description" class="text-gray-300 leading-relaxed mb-8 flex-grow">...</p>
@@ -470,9 +492,13 @@
         </div>
     </div>
 
-    <!-- Add to Cart Message Box -->
-    <div id="cartMessageBox" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-lg shadow-xl hidden transition-all duration-300 ease-in-out transform translate-y-4 opacity-0 z-[1000]">
-        <i class="fas fa-check-circle mr-2"></i> <span data-i18n="cart.addedToCartMessage">បានបន្ថែមទៅរទេះ!</span>
+    <!-- Add to Cart Message Box - NOW CLICKABLE -->
+    <div id="cartMessageBox" onclick="window.location.href='cart.html'" class="cursor-pointer fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg shadow-xl hidden transition-all duration-300 ease-in-out transform translate-y-4 opacity-0 z-[1000]">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i> 
+            <span data-i18n="cart.addedToCartMessage">បានបន្ថែមទៅរទេះ!</span>
+            <i class="fas fa-arrow-right ml-2 text-sm opacity-80"></i>
+        </div>
     </div>
     
     <!-- Updated JavaScript Section -->
@@ -484,26 +510,26 @@
                 pageTitle: 'SP E-STORE - ផលិតផល',
                 nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
                 products: { 
-                    heading: '🛒ផលិតផល🛍️', // [MODIFIED]
-                    subheading: 'ស្វែងរកផលិតផលដែលអ្នកត្រូវការ និងផលិតផលជាច្រើនទៀត', // [NEW]
+                    heading: '🛒ផលិតផល🛍️', 
+                    subheading: 'ស្វែងរកផលិតផលដែលអ្នកត្រូវការ និងផលិតផលជាច្រើនទៀត',
                     searchPlaceholder: 'ស្វែងរកតាមឈ្មោះផលិតផល...',
                     noResults: 'រកមិនឃើញផលិតផលណាត្រូវនឹងការស្វែងរករបស់អ្នកទេ។',
                     categories: {
-                        title: 'ប្រភេទ', // [NEW]
+                        title: 'ប្រភេទ',
                         all: 'ផលិតផលទាំងអស់',
-                        laptops: 'គ្រឿងបន្លាស់ Desktop', // [MODIFIED]
-                        phones: 'គ្រឿងបន្លាស់ Laptop', // [MODIFIED]
-                        accessories: 'គ្រឿងអេឡិចត្រូនិក', // [MODIFIED]
-                        tablets: 'Mouse & Keyboards', // [MODIFIED]
-                        audio: 'ឧបករណ៍អូឌីយ៉ូ'
+                        laptops: 'គ្រឿងបន្លាស់ Desktop', 
+                        phones: 'គ្រឿងបន្លាស់ Laptop', 
+                        accessories: 'Electronics', 
+                        tablets: 'Mouse & Keyboards', 
+                        audio: 'Audio Devices'
                     },
-                    viewDetail: 'មើលផលិតផល' // [NEW]
+                    viewDetail: 'មើលផលិតផល'
                 },
                 cart: { 
-                    addedToCartMessage: 'បានបន្ថែមទៅរទេះ!', // [MODIFIED]
+                    addedToCartMessage: 'បានបន្ថែមទៅរទេះ!',
                     addToCart: 'បន្ថែមទៅរទេះ'
                 },
-                productDetail: { // [NEW]
+                productDetail: {
                     descriptionTitle: 'ការពិពណ៌នា'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE។ រក្សាសិទ្ធិគ្រប់យ៉ាង។', privacyPolicy: 'គោលការណ៍ឯកជនភាព', termsOfService: 'លក្ខខណ្ឌប្រើប្រាស់' }
@@ -513,26 +539,26 @@
                 pageTitle: 'SP E-STORE - Products',
                 nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
                 products: { 
-                    heading: '🛒Products🛍️', // [MODIFIED]
-                    subheading: 'Find the products you need and much more', // [NEW]
+                    heading: '🛒Products🛍️',
+                    subheading: 'Find the products you need and much more',
                     searchPlaceholder: 'Search by product name...',
                     noResults: 'No products found matching your search.',
                     categories: {
-                        title: 'Categories', // [NEW]
+                        title: 'Categories',
                         all: 'All Products',
-                        laptops: 'Desktop Accessories', // [MODIFIED]
-                        phones: 'Laptop Accessories', // [MODIFIED]
-                        accessories: 'Electronics', // [MODIFIED]
-                        tablets: 'Mouse & Keyboards', // [MODIFIED]
+                        laptops: 'Desktop Accessories',
+                        phones: 'Laptop Accessories',
+                        accessories: 'Electronics',
+                        tablets: 'Mouse & Keyboards',
                         audio: 'Audio Devices'
                     },
-                    viewDetail: 'View Product' // [NEW]
+                    viewDetail: 'View Product'
                 },
                 cart: { 
-                    addedToCartMessage: 'Added to cart!', // [MODIFIED]
+                    addedToCartMessage: 'Added to cart!',
                     addToCart: 'Add to Cart'
                 },
-                productDetail: { // [NEW]
+                productDetail: {
                     descriptionTitle: 'Description'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE. All rights reserved.', privacyPolicy: 'Privacy Policy', termsOfService: 'Terms of Service' }
@@ -542,44 +568,45 @@
                 pageTitle: 'SP E-STORE - 产品',
                 nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
                 products: { 
-                    heading: '🛒我们的产品🛍️', // [MODIFIED]
-                    subheading: '查找您需要的产品以及更多', // [NEW]
+                    heading: '🛒我们的产品🛍️',
+                    subheading: '查找您需要的产品以及更多',
                     searchPlaceholder: '按产品名称搜索...',
                     noResults: '未找到符合您搜索的产品。',
                     categories: {
-                        title: '类别', // [NEW]
+                        title: '类别',
                         all: '所有产品',
-                        laptops: '台式电脑配件', // [MODIFIED]
-                        phones: '笔记本电脑配件', // [MODIFIED]
-                        accessories: '电子产品', // [MODIFIED]
-                        tablets: '鼠标和键盘', // [MODIFIED]
+                        laptops: '台式电脑配件',
+                        phones: '笔记本电脑配件',
+                        accessories: '电子产品',
+                        tablets: '鼠标和键盘',
                         audio: '音频设备'
                     },
-                    viewDetail: '查看产品' // [NEW]
+                    viewDetail: '查看产品'
                 },
                 cart: { 
-                    addedToCartMessage: '已添加到购物车！', // [MODIFIED]
+                    addedToCartMessage: '已添加到购物车！',
                     addToCart: '添加到购物车'
                 },
-                productDetail: { // [NEW]
+                productDetail: {
                     descriptionTitle: '描述'
                 },
                 footer: { copyright: '&copy; 2025 SP E-STORE。 版权所有。', privacyPolicy: '隐私政策', termsOfService: '服务条款' }
             }
         };
         
-        // [MODIFIED] Product data now replaced with new products from images
+        // Product data with Original Prices added
         const productData = [
             {
                 id: 1,
-                category: 'tablets', // Mouse & Keyboards
-                name: {km: 'កណ្ដុរឥតខ្សែ Wireless Mouse', en: 'Wireless Mouse'},
+                category: 'tablets', 
+                name: {km: 'ម៉ៅឥតខ្សែ​ Wireless Mouse', en: 'Wireless Mouse'},
                 images: [
                     'Photo/Product/5.jpg', 
                     'Photo/Product/55.jpg',
                     'Photo/Product/555.jpg'
                 ],
-                price: 26000, // $6.5
+                originalPrice: 32000, // Added Original Price
+                price: 26000, 
                 description: {km: 'កណ្ដុរឥតខ្សែ Wireless Mouse ភ្ជាប់បច្ចេកវិទ្យា 5.2 Bluetooth និង 2.4G។ មានភ្លើង LED ស្អាត ថ្មទំហំ 500mAh អាចសាកថ្មបាន។', en: 'Wireless Mouse with 5.2 Bluetooth and 2.4G. Features RGB LED, and a 500mAh rechargeable battery.'}
             },
             {
@@ -591,7 +618,8 @@
                     'Photo/Product/11.jpg',
                     'Photo/Product/111.jpg'
                 ],
-                price: 76000, // $19
+                originalPrice: 80000, // Added Original Price
+                price: 76000, 
                 description: {km: 'មីក្រូហ្វូន HK2 គុណភាពសំឡេងច្បាស់ ជាមួយបន្ទះឈីប AI និង DSP។ មានភ្លើង RGB ស្អាត និងខ្សែ USB TYPE-C 1.5M។ ថែមជូនកាសស្តាប់ត្រចៀក។', en: 'HK2 Microphone with clear audio, AI and DSP chip. Features beautiful RGB lighting and a 1.5M USB TYPE-C cable. Includes free earphones.'}
             },
             {
@@ -603,7 +631,8 @@
                     'Photo/Product/22.jpg',
                     'Photo/Product/222.jpg'
                 ],
-                price: 82000, // $20.5
+                originalPrice: 90000, // Added Original Price
+                price: 82000, 
                 description: {km: 'ឈុតមីក្រូហ្វូន HK2 ថែមជូនកាសស្តាប់ត្រចៀក, ខ្សែ USB TYPE-C 1.5M, និងក្បាលត OTG ចំនួនពីរ (TYPE-C និង Lightning)។', en: 'HK2 Microphone set including earphones, 1.5M USB TYPE-C cable, and two OTG adapters (TYPE-C and Lightning).'}
             },
             {
@@ -615,19 +644,21 @@
                     'Photo/Product/33.jpg',
                     'Photo/Product/333.jpg'
                 ],
-                price: 102000, // $25.5
+                originalPrice: 120000, // Added Original Price
+                price: 102000, 
                 description: {km: 'ឈុតធំពិសេស! Mic HK2 ជាមួយនឹងជើងទ Microphone Stand, កាសស្តាប់, ខ្សែ USB-C, TYPE-C OTG, និង Lightning OTG។', en: 'Complete HK2 Microphone set! Includes the mic, microphone stand, earphones, USB-C cable, TYPE-C OTG, and Lightning OTG.'}
             },
             {
                 id: 5,
-                category: 'audio', // គ្រឿងអេឡិចត្រូនិក
+                category: 'audio',
                 name: {km: 'ជើងទម្រ មីក្រូហ្វូន​ (Stand)', en: 'Microphone Stand'},
                 images: [
                     'Photo/Product/4.jpg',
                     'Photo/Product/44.jpg',
                     'Photo/Product/444.jpg'
                 ],
-                price: 30000, // $7.5
+                originalPrice: 40000, // Added Original Price
+                price: 30000, 
                 description: {km: 'ជើងទមីក្រូហ្វូន អាចបត់បែនបាន 360 ដឺក្រេ ធ្វើពីដែក រឹងមាំ ងាយស្រួលតំឡើង។', en: 'Flexible 360-degree microphone stand, made of strong metal, easy to install.'}
             }
         ];
@@ -635,7 +666,7 @@
 
         let currentLang = localStorage.getItem('language') || 'km';
         let currentCategory = ''; // Store the currently active category
-        const KHR_TO_USD_RATE = 4000; // [NEW] Add conversion rate
+        const KHR_TO_USD_RATE = 4000; 
         
         // --- TRANSLATION & UTILITIES ---
         function getTranslation(key, lang = currentLang) {
@@ -672,13 +703,12 @@
                         if (textNode) {
                             textNode.textContent = text;
                         } else {
-                            // Fallback for category button text
                              el.innerHTML = icon.outerHTML + " " + `<span>${text}</span>`;
                         }
                     } else if (el.id === 'cartMessageBox') {
                          el.querySelector('span').innerHTML = text;
-                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.id === 'lang-toggle-button-mobile' || el.parentElement.id === 'modal-add-to-cart-btn')) {
-                        el.textContent = text; // Specific for mobile nav text
+                    } else if (el.tagName === 'SPAN' && (el.parentElement.classList.contains('mobile-nav-link') || el.parentElement.id === 'modal-add-to-cart-btn')) {
+                        el.textContent = text; 
                     }
                     else {
                         el.innerHTML = text; // Default case (H2, P, etc.)
@@ -705,15 +735,13 @@
             const currentLangData = translations[currentLang];
             if (!currentLangData) return;
 
-            // Update toggle button flags
-            document.getElementById('lang-toggle-flag').src = currentLangData.lang.flag;
-            document.getElementById('lang-toggle-flag-mobile').src = currentLangData.lang.flag;
+            // Update desktop flag
+            const desktopFlag = document.getElementById('lang-toggle-flag');
+            if(desktopFlag) desktopFlag.src = currentLangData.lang.flag;
 
-            // Update mobile toggle button text
-            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
-            if (mobileLangText) {
-                mobileLangText.textContent = currentLangData.nav.language;
-            }
+            // Update new mobile header flag
+            const mobileHeaderFlag = document.getElementById('mobile-header-lang-flag');
+            if(mobileHeaderFlag) mobileHeaderFlag.src = currentLangData.lang.flag;
 
             // Show/hide items in dropdowns
             document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
@@ -725,27 +753,25 @@
             });
         }
         
-        // [MODIFIED] Prices are in KHR, we will format both KHR and USD
         function formatPrice(khrValue) {
             const khrDisplay = `${Math.round(khrValue).toLocaleString('km-KH')}៛`;
             const usdDisplay = `$${(khrValue / KHR_TO_USD_RATE).toFixed(2)}`;
-            // [NEW] Return an object with both formats
             return { khr: khrDisplay, usd: usdDisplay };
         }
 
         // --- PRODUCT RENDERING & FILTERING ---
         function createProductCard(p) {
-            const priceDisplay = formatPrice(p.price); // [MODIFIED] This is now an object
-            // Get translated product name
+            const priceDisplay = formatPrice(p.price); 
+            const originalPriceDisplay = p.originalPrice ? formatPrice(p.originalPrice) : null;
             const productName = p.name[currentLang] || p.name['km']; 
             
-            // [MODIFIED] Change button to open modal
             let buttonsHtml = `
                 <button onclick="openModal(${p.id})" class="add-to-cart-btn bg-theme-primary hover:bg-theme-primary-dark text-white font-bold py-2.5 px-5 rounded-full w-full inline-block">
                     <i class="fas fa-eye mr-2"></i> <span>${getTranslation('products.viewDetail')}</span>
                 </button>
             `;
 
+            // Updated Price Layout: Original (ONLY USD) -> USD (Top) -> KHR (Bottom)
             return `
                 <div class="product-card p-3 sm:p-5 rounded-xl shadow-lg text-center flex flex-col justify-between">
                     <div>
@@ -755,10 +781,14 @@
                         <h3 class="text-lg sm:text-xl font-bold mb-2 h-14 overflow-hidden">${productName}</h3>
                     </div>
                     <div>
-                        <!-- [MODIFIED] Updated price display -->
                         <div class="mb-4">
-                            <p class="text-xl font-extrabold text-blue-400">${priceDisplay.khr}</p>
-                            <p class="text-sm text-gray-400">${priceDisplay.usd}</p>
+                             ${originalPriceDisplay ? `
+                                <p class="text-sm text-gray-500 line-through mb-1">
+                                    <span class="mr-2">${originalPriceDisplay.usd}</span>
+                                </p>
+                            ` : ''}
+                            <p class="text-xl font-extrabold text-blue-400">${priceDisplay.usd}</p>
+                            <p class="text-sm text-gray-400">${priceDisplay.khr}</p>
                         </div>
                         <div class="space-y-2 mt-4">
                             ${buttonsHtml}
@@ -789,7 +819,7 @@
                 return;
             }
 
-            // [UPDATED] Grid columns for new layout - Now 1 col on mobile, 2 on sm
+            // Grid columns
             container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6';
             filteredProducts.forEach(p => {
                 container.insertAdjacentHTML('beforeend', createProductCard(p));
@@ -802,13 +832,11 @@
                 document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
                 btnElement.classList.add('active');
             } else {
-                // If called without a button (e.g., from dropdown or lang change)
                 const activeBtn = document.querySelector(`.category-btn[onclick="filterProducts('${category}', this)"]`);
                 if (activeBtn) {
                      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
                      activeBtn.classList.add('active');
                 } else {
-                    // If category is '' (All), set 'All' button as active
                     if (category === '') {
                          const allBtn = document.querySelector(`.category-btn[onclick="filterProducts('', this)"]`);
                          if (allBtn) {
@@ -819,7 +847,6 @@
                 }
             }
             
-            // [NEW] Sync dropdown
             const categorySelect = document.getElementById('category-select');
             if (categorySelect) {
                 categorySelect.value = category;
@@ -831,7 +858,6 @@
         }
 
         // --- CART LOGIC ---
-        // [NEW] This function is only for the modal
         function modalAddToCart(productId) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const product = productData.find(p => p.id === productId);
@@ -860,7 +886,7 @@
         function updateCartCount() {
             const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCountElement = document.getElementById('cart-count');
-            const cartCountBottomElement = document.getElementById('cart-count-bottom'); // [NEW]
+            const cartCountBottomElement = document.getElementById('cart-count-bottom'); 
             
             const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
 
@@ -868,7 +894,6 @@
                 cartCountElement.textContent = totalQuantity;
             }
 
-            // [NEW] Update bottom nav cart count
             if (cartCountBottomElement) { 
                 cartCountBottomElement.textContent = totalQuantity;
                 if (totalQuantity > 0) {
@@ -880,7 +905,6 @@
         }
         
         // --- UI Interactions ---
-        // [MODIFIED] Renamed and removed redirect
         function showCartMessage() {
             const msgBox = document.getElementById('cartMessageBox');
             msgBox.querySelector('span').textContent = getTranslation('cart.addedToCartMessage');
@@ -889,15 +913,10 @@
             setTimeout(() => {
                 msgBox.classList.add('translate-y-4', 'opacity-0');
                 setTimeout(() => msgBox.classList.add('hidden'), 300);
-            }, 2000); // Hide after 2 seconds
+            }, 2000); 
         }
 
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
-        // --- [NEW] Modal Functions ---
+        // --- Modal Functions ---
         const modal = document.getElementById('productModal');
         const overlay = document.getElementById('productModalOverlay');
         const closeModalBtn = document.getElementById('closeModalBtn');
@@ -906,19 +925,14 @@
             const product = productData.find(p => p.id === productId);
             if (!product) return;
 
-            // Populate modal content
             const mainImage = document.getElementById('modal-product-image');
             const galleryContainer = document.getElementById('modal-image-gallery');
 
-            // Clear previous gallery
             galleryContainer.innerHTML = '';
 
-            // Check if product.images is an array and not empty
             if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-                // Set main image to the first image
                 mainImage.src = product.images[0];
 
-                // Populate gallery thumbnails
                 product.images.forEach((imgSrc, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgSrc;
@@ -926,13 +940,11 @@
                     thumb.className = 'gallery-thumbnail';
                     
                     if (index === 0) {
-                        thumb.classList.add('active'); // Set first thumbnail as active
+                        thumb.classList.add('active'); 
                     }
                     
-                    // Add click event to change main image
                     thumb.addEventListener('click', () => {
                         mainImage.src = imgSrc;
-                        // Update active state
                         document.querySelectorAll('#modal-image-gallery .gallery-thumbnail').forEach(t => t.classList.remove('active'));
                         thumb.classList.add('active');
                     });
@@ -941,7 +953,6 @@
                 });
 
             } else {
-                // Fallback for old data structure (though we updated it, good to have)
                 mainImage.src = product.img || 'https://placehold.co/600x600/374151/e5e7eb?text=No+Image';
             }
             
@@ -949,18 +960,27 @@
             document.getElementById('modal-product-description').textContent = product.description[currentLang] || product.description.km;
             
             const price = formatPrice(product.price);
-            document.getElementById('modal-product-price-khr').textContent = price.khr;
+            // Update Modal Price Layout
             document.getElementById('modal-product-price-usd').textContent = price.usd;
+            document.getElementById('modal-product-price-khr').textContent = price.khr;
 
-            // Update cart button text and listener
+            const originalPriceEl = document.getElementById('modal-product-original-price');
+            if (product.originalPrice) {
+                const origPrice = formatPrice(product.originalPrice);
+                // CHANGED: Removed KHR display from original price in modal
+                originalPriceEl.innerHTML = `<span class="mr-2">${origPrice.usd}</span>`;
+                originalPriceEl.classList.remove('hidden');
+            } else {
+                originalPriceEl.classList.add('hidden');
+            }
+
             const cartBtn = document.getElementById('modal-add-to-cart-btn');
             cartBtn.querySelector('span').textContent = getTranslation('cart.addToCart');
-            cartBtn.onclick = () => modalAddToCart(product.id); // Set click listener dynamically
+            cartBtn.onclick = () => modalAddToCart(product.id); 
 
-            // Show modal
             overlay.classList.remove('hidden');
             modal.classList.remove('hidden');
-            setTimeout(() => { // Delay to allow CSS transition
+            setTimeout(() => { 
                 overlay.classList.add('active');
                 modal.classList.add('active');
             }, 10);
@@ -969,58 +989,52 @@
         function closeModal() {
             overlay.classList.remove('active');
             modal.classList.remove('active');
-            setTimeout(() => { // Hide after transition
+            setTimeout(() => { 
                 overlay.classList.add('hidden');
                 modal.classList.add('hidden');
             }, 300);
         }
 
 
-        // --- NEW: Theme Toggle Logic (from index.html) ---
+        // --- Theme Toggle Logic ---
         function setTheme(theme) {
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
             const htmlEl = document.documentElement;
-            const mobileIcon = themeToggleMobile.querySelector('i');
 
             if (theme === 'light') {
                 htmlEl.classList.add('light');
                 localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
-                if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-moon text-xl md:text-2xl"></i>';
             } else {
                 htmlEl.classList.remove('light');
                 localStorage.setItem('theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
-                if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-sun text-xl md:text-2xl"></i>';
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Listeners ---
-            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
-            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
-            document.querySelectorAll('#mobile-menu a:not(#lang-toggle-button-mobile)').forEach(link => {
-                link.addEventListener('click', toggleMobileMenu);
-            });
             
-            // --- NEW: Language Dropdown Listeners (from index.html) ---
+            // --- Language Dropdown Listeners (Desktop & Mobile) ---
             const langToggleButton = document.getElementById('lang-toggle-button');
             const langDropdownMenu = document.getElementById('lang-dropdown-menu');
-            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
-            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+            
+            // Mobile Header Language Toggle
+            const mobileHeaderLangBtn = document.getElementById('mobile-header-lang-btn');
+            const mobileHeaderLangMenu = document.getElementById('mobile-header-lang-menu');
 
             if (langToggleButton) {
                 langToggleButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     langDropdownMenu.classList.toggle('hidden');
+                    if(mobileHeaderLangMenu) mobileHeaderLangMenu.classList.add('hidden');
                 });
             }
             
-            if (langToggleButtonMobile) {
-                langToggleButtonMobile.addEventListener('click', (e) => {
+            if (mobileHeaderLangBtn) {
+                mobileHeaderLangBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    langDropdownMenuMobile.classList.toggle('hidden');
+                    mobileHeaderLangMenu.classList.toggle('hidden');
+                    if(langDropdownMenu) langDropdownMenu.classList.add('hidden');
                 });
             }
 
@@ -1032,30 +1046,20 @@
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
-                if (langDropdownMenu && langToggleButton && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
+                if (langDropdownMenu && !langDropdownMenu.classList.contains('hidden')) {
                     langDropdownMenu.classList.add('hidden');
                 }
-                if (langDropdownMenuMobile && langToggleButtonMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
-                    langDropdownMenuMobile.classList.add('hidden');
+                if (mobileHeaderLangMenu && !mobileHeaderLangMenu.classList.contains('hidden')) {
+                    mobileHeaderLangMenu.classList.add('hidden');
                 }
             });
 
-            // --- NEW: Theme Toggle Listeners (from index.html) ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-
-            if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
+            // --- Theme Toggle FAB Listener ---
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
+            if(themeToggleFab) {
+                themeToggleFab.addEventListener('click', () => {
                     const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
                     setTheme(newTheme);
-                });
-            }
-
-            if (themeToggleMobile) {
-                themeToggleMobile.addEventListener('click', () => {
-                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
-                    setTheme(newTheme);
-                    // Don't close mobile menu, just toggle theme
                 });
             }
             
@@ -1065,7 +1069,7 @@
                 productSearch.addEventListener('input', () => filterProducts(currentCategory));
             }
 
-            // [NEW] Mobile Category Select Listener
+            // Mobile Category Select Listener
             const categorySelect = document.getElementById('category-select');
             if (categorySelect) {
                 categorySelect.addEventListener('change', (e) => {
@@ -1073,21 +1077,17 @@
                 });
             }
 
-            // --- [NEW] Modal Listeners ---
+            // --- Modal Listeners ---
             if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
             if (overlay) overlay.addEventListener('click', closeModal);
             
             // --- Initial Load ---
-            const currentTheme = localStorage.getItem('theme') || 'light'; // Default to light
-            setTheme(currentTheme); // Set theme first
-            setLanguage(currentLang); // Set language (which also calls filterProducts)
-            updateCartCount(); // Initial load
-            
-            // Set active category button visually without triggering re-render
-            // This is handled by filterProducts now
+            const currentTheme = localStorage.getItem('theme') || 'light'; 
+            setTheme(currentTheme); 
+            setLanguage(currentLang); 
+            updateCartCount(); 
         });
         
-        // Make functions globally accessible from the HTML
         window.openModal = openModal;
         window.filterProducts = filterProducts;
     </script>
