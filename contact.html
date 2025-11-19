@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title នឹងត្រូវបានកំណត់ដោយ JavaScript -->
     <title>SP E-STORE - ទំនាក់ទំនង</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Kantumruy+Pro:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
@@ -41,7 +40,7 @@
         html.light #mobile-menu a, html.light #mobile-menu button { color: #1f2937; }
         html.light #mobile-menu a:hover, html.light #mobile-menu button:hover { color: #3b82f6; }
 
-        /* [NEW] Specific text color for light mode */
+        /* Specific text color for light mode */
         html.light p[data-i18n="contact.description"],
         html.light p[data-i18n="contact.altContact"] {
             color: #111827; /* text-gray-900 (black) */
@@ -55,7 +54,7 @@
         html.light footer a { color: #d1d5db; }
         html.light footer a:hover { color: #ffffff; }
 
-        /* [NEW] Language Dropdown Styles */
+        /* Language Dropdown Styles */
         .lang-dropdown-menu {
             background-color: #1f2937; /* bg-gray-800 */
             border: 1px solid #374151; /* border-gray-700 */
@@ -76,10 +75,91 @@
         html.light .lang-dropdown-item:hover {
             background-color: #f3f4f6; /* hover:bg-gray-100 */
         }
+
+        /* Add padding to body for bottom nav */
+        body {
+            padding-bottom: 80px; /* Height of the bottom nav */
+        }
+        @media (min-width: 768px) { /* md */
+            body {
+                padding-bottom: 0;
+            }
+        }
+
+        /* Mobile Bottom Nav */
+        .mobile-bottom-nav {
+            background-color: #1f2937; /* bg-gray-800 */
+            border-top: 1px solid #374151; /* border-gray-700 */
+        }
+        .bottom-nav-link {
+            color: #9ca3af; /* text-gray-400 */
+        }
+        .bottom-nav-link:hover {
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
+            font-weight: 600;
+        }
+
+        /* Light Mode Bottom Nav */
+        html.light .mobile-bottom-nav {
+            background-color: #ffffff; /* bg-white */
+            border-top: 1px solid #e5e7eb; /* border-gray-200 */
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        html.light .bottom-nav-link {
+            color: #6b7280; /* text-gray-500 */
+        }
+        html.light .bottom-nav-link:hover {
+            color: #374151; /* text-gray-700 */
+        }
+        html.light .bottom-nav-link.active {
+            color: #3b82f6; /* text-blue-500 */
+        }
+
+        /* Floating Action Button (Theme) */
+        .theme-fab {
+            position: fixed;
+            bottom: 100px; /* Above bottom nav */
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            opacity: 0.8;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .theme-fab:hover {
+            background-color: #2563eb;
+            transform: scale(1.05);
+            opacity: 1;
+        }
+        @media (min-width: 768px) {
+            .theme-fab {
+                bottom: 24px;
+                width: 56px;
+                height: 56px;
+                opacity: 1;
+            }
+        }
+        html.light .theme-fab {
+            background-color: #4b5563;
+            color: #e5e7eb;
+        }
+        html.light .theme-fab:hover {
+             background-color: #374151;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-300" data-page-key="contact">
-    <!-- [MODIFIED] Navigation Bar with Language Dropdown -->
+    <!-- Navigation Bar -->
     <nav class="bg-gray-800/90 backdrop-blur-lg shadow-md p-4 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-extrabold text-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
@@ -102,12 +182,8 @@
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span id="cart-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="text-gray-300 hover:text-blue-400 font-semibold transition-colors rounded-lg p-2 hover:bg-gray-700 ml-2">
-                    <i class="fas fa-sun text-xl"></i>
-                </button>
                 
-                <!-- [NEW] Language Dropdown (Desktop) -->
+                <!-- Language Dropdown (Desktop) -->
                 <div id="lang-dropdown-desktop" class="relative ml-2">
                     <button id="lang-toggle-button" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors">
                         <img id="lang-toggle-flag" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-6 block rounded-sm">
@@ -128,63 +204,36 @@
                         </button>
                     </div>
                 </div>
-
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none focus:ring-2 ring-blue-500 rounded-lg p-2 hover:bg-gray-700 transition-colors">
-                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            
+            <!-- Language Switcher for Mobile (Replaces the Hamburger Menu) -->
+            <div class="md:hidden relative">
+                <button id="mobile-header-lang-btn" class="flex items-center justify-center p-2 rounded-lg hover:bg-gray-700 transition-colors focus:outline-none ring-blue-500">
+                    <img id="mobile-header-lang-flag" src="https://flagcdn.com/w40/kh.png" alt="Language" class="w-7 h-5 object-cover rounded-sm border border-gray-600">
+                </button>
+                
+                <div id="mobile-header-lang-menu" class="lang-dropdown-menu hidden absolute right-0 mt-2 w-40 rounded-lg shadow-lg z-50 overflow-hidden">
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
+                        <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">ខ្មែរ</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">English</span>
+                    </button>
+                    <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
+                        <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-6 rounded-sm">
+                        <span class="text-sm font-semibold">中文</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
-
-    <!-- [MODIFIED] Mobile Menu with Language Dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-800/95 z-[100] flex flex-col items-center justify-center space-y-8">
-        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-300 focus:outline-none p-2"><svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.home">
-            <i class="fas fa-home"></i><span>ទំព័រដើម</span>
-        </a>
-        <a href="products.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.products">
-            <i class="fas fa-boxes"></i><span>ផលិតផល</span>
-        </a>
-        <a href="contact.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.contact">
-            <i class="fas fa-envelope"></i><span>ទំនាក់ទំនង</span>
-        </a>
-        <a href="cart.html" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400" data-i18n="nav.cart">
-            <i class="fas fa-shopping-cart"></i> <span>រទេះទំនិញ</span>
-        </a>
-        <!-- Mobile Theme Toggle Button -->
-        <button id="theme-toggle-mobile" class="mobile-nav-link text-3xl font-semibold text-gray-200 hover:text-blue-400">
-            <i class="fas fa-sun w-8 text-center"></i><span data-i18n="nav.theme">Theme</span>
-        </button>
-        
-        <!-- [NEW] Language Dropdown (Mobile) -->
-        <div id="lang-dropdown-mobile" class="relative mt-4">
-            <button id="lang-toggle-button-mobile" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-700 transition-colors">
-                <img id="lang-toggle-flag-mobile" src="https://flagcdn.com/w40/kh.png" alt="ភាសា" class="w-10 block rounded-md">
-                <span class="text-3xl font-semibold text-gray-200" data-i18n="nav.language">ភាសា</span>
-                <i class="fas fa-chevron-down text-xl text-gray-400"></i>
-            </button>
-            <div id="lang-dropdown-menu-mobile" class="lang-dropdown-menu hidden absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-lg shadow-lg z-50 overflow-hidden">
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="km">
-                    <img src="https://flagcdn.com/w40/kh.png" alt="ខ្មែរ" class="w-8 rounded-sm">
-                    <span class="text-lg">ខ្មែរ</span>
-                </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="en">
-                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="w-8 rounded-sm">
-                    <span class="text-lg">English</span>
-                </button>
-                <button class="lang-dropdown-item w-full text-left px-4 py-3 flex items-center space-x-3" data-lang="zh">
-                    <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="w-8 rounded-sm">
-                    <span class="text-lg">中文</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
+    
     <main>
         <section id="contact" class="py-16 px-4 fade-in-on-scroll">
             <div class="container mx-auto text-center max-w-2xl">
                 <h2 class="text-4xl font-bold mb-8" data-i18n="contact.heading">ទំនាក់ទំនងមកពួកយើង</h2>
-                <!-- [CHANGED] ពណ៌អក្សរពី text-gray-300 ទៅ text-gray-100 (សជាងមុន) -->
                 <p class="text-lg text-gray-100 mb-8" data-i18n="contact.description">
                     ប្រសិនបើអ្នកមានសំណួរ មតិកែលម្អ ឬចង់សាកសួរព័ត៌មានបន្ថែម សូមធ្វើការទាក់ទងមកយើងខ្ញុំ។
                 </p>
@@ -206,19 +255,19 @@
                     </button>
                 </form>
                 <div class="mt-8 text-center">
-                    <!-- [CHANGED] ពណ៌អក្សរពី text-gray-300 ទៅ text-gray-100 (សជាងមុន) -->
                     <p class="text-lg text-gray-100 mb-4" data-i18n="contact.altContact">ឬទំនាក់ទំនងកម្មង់តាមរយៈ</p>
                     <div class="flex justify-center items-center gap-4 mt-2">
-                        <a href="#" target="_blank" title="Facebook" class="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                        <!-- Updated Links with URL Placeholders -->
+                        <a href="https://web.facebook.com/sp.estore168" target="_blank" title="Facebook" class="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-md transition-transform hover:scale-110">
                             <i class="fab fa-facebook-f text-xl"></i>
                         </a>
-                        <a href="#" target="_blank" title="Telegram" class="flex items-center justify-center w-12 h-12 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                        <a href="https://t.me/spestore168" target="_blank" title="Telegram" class="flex items-center justify-center w-12 h-12 bg-sky-500 hover:bg-sky-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
                             <i class="fab fa-telegram-plane text-xl"></i>
                         </a>
-                        <a href="tel:012345678" title="Call 012 345 678" class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                        <a href="tel:081695138" title="Call 081 695 138" class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
                             <i class="fas fa-phone text-xl"></i>
                         </a>
-                        <a href="mailto:info@spestore.com" title="Email" class="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
+                        <a href="mailto:nangtechnology@gmail.com" title="Email" class="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-md transition-transform hover:scale-110">
                             <i class="fas fa-envelope text-xl"></i>
                         </a>
                     </div>
@@ -226,6 +275,27 @@
             </div>
         </section>
     </main>
+    
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav id="mobile-bottom-nav" class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 h-20 flex items-center justify-around z-40">
+        <a href="index.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-home text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.home">ទំព័រដើម</span>
+        </a>
+        <a href="products.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-boxes text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.products">ផលិតផល</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link active flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors">
+            <i class="fas fa-envelope text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.contact">ទំនាក់ទំនង</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-link flex-1 flex flex-col items-center justify-center py-2 px-1 transition-colors relative">
+            <i class="fas fa-shopping-cart text-2xl mb-1"></i>
+            <span class="text-xs" data-i18n="nav.cart">រទេះទំនិញ</span>
+            <span id="cart-count-bottom" class="absolute top-1 right-1/2 translate-x-3 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+        </a>
+    </nav>
 
     <footer class="bg-gray-950 text-white py-8 px-4 text-center">
         <div class="container mx-auto">
@@ -241,36 +311,21 @@
      <div id="formMessageBox" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-blue-500 text-white p-4 rounded-lg shadow-xl hidden transition-all duration-300 ease-in-out transform scale-95 opacity-0 z-[1000]">
         <i class="fas fa-paper-plane mr-2"></i> <span></span>
     </div>
-
-    <!-- [REMOVED] <script src="app.js" defer></script> -->
-    <!-- [REMOVED] Old minimal script block -->
     
-    <!-- [NEW] Full Inline Script (Shared + Page-specific) -->
+    <!-- Floating Action Button for Theme -->
+    <button id="theme-toggle-fab" class="theme-fab">
+        <i class="fas fa-sun text-xl md:text-2xl"></i>
+    </button>
+    
     <script>
-        // --- START OF SHARED SCRIPT ---
-
         // Full translations object including contact page
         const translations = {
             km: {
                 lang: { flag: 'https://flagcdn.com/w40/kh.png' },
                 pageTitle: {
-                    index: 'SP E-STORE - ទំព័រដើម',
-                    products: 'SP E-STORE - ផលិតផល',
-                    cart: 'SP E-STORE - រទេះទំនិញ',
                     contact: 'SP E-STORE - ទំនាក់ទំនង'
                 },
                 nav: { home: 'ទំព័រដើម', products: 'ផលិតផល', contact: 'ទំនាក់ទំនង', cart: 'រទេះទំនិញ', theme: 'ពន្លឺ', language: 'ភាសា' },
-                hero: {
-                    title: 'សូមស្វាគមន៍មកកាន់ SP E-STORE',
-                    subtitle: 'ហាងលក់គ្រឿងអេឡិចត្រូនិកទំនើប ឈានមុខគេ ផ្ដល់ជូនគុណភាព និងតម្លៃដ៏ល្អបំផុត។',
-                    button: 'ទិញទំនិញឥឡូវនេះ'
-                },
-                about: {
-                    title: 'អំពី SP E-STORE',
-                    feature1: { title: 'ដឹកជញ្ជូនលឿនរហ័ស', desc: 'សេវាកម្មដឹកជញ្ជូនទាន់ចិត្ត ទូទាំងប្រទេស។ ទទួលបានទំនិញរបស់អ្នកក្នុងរយៈពេលខ្លីបំផុត។' },
-                    feature2: { title: 'គុណភាពធានា', desc: 'ផលិតផលសុទ្ធ 100% ពីក្រុមហ៊ុន ជាមួយនឹងការធានាត្រឹមត្រូវ និងសេវាកម្មជួសជុល។' },
-                    feature3: { title: 'សេវាកម្មអតិថិជន 24/7', desc: 'ក្រុមការងារយើងខ្ញុំ ត្រៀមខ្លួនជានិច្ចដើម្បីឆ្លើយតបគ្រប់ចម្ងល់ និងដោះស្រាយបញ្ហារបស់អ្នក។' }
-                },
                 contact: { 
                     heading: 'ទំនាក់ទំនងមកយើងខ្ញុំ', 
                     description: 'ប្រសិនបើអ្នកមានសំណួរ មតិកែលម្អ ឬចង់សាកសួរព័ត៌មានបន្ថែម សូមធ្វើការទាក់ទងមកយើងខ្ញុំ! 📞📩', 
@@ -289,23 +344,9 @@
             en: {
                 lang: { flag: 'https://flagcdn.com/w40/us.png' },
                 pageTitle: {
-                    index: 'SP E-STORE - Home',
-                    products: 'SP E-STORE - Products',
-                    cart: 'SP E-STORE - Cart',
                     contact: 'SP E-STORE - Contact'
                 },
                 nav: { home: 'Home', products: 'Products', contact: 'Contact', cart: 'Cart', theme: 'Theme', language: 'Language' },
-                hero: {
-                    title: 'Welcome to SP E-STORE',
-                    subtitle: 'The leading modern electronics store, offering the best quality and value.',
-                    button: 'Shop Now'
-                },
-                about: {
-                    title: 'About SP E-STORE',
-                    feature1: { title: 'Fast Delivery', desc: 'Prompt delivery service nationwide. Get your items in the shortest time.' },
-                    feature2: { title: 'Guaranteed Quality', desc: '100% genuine products from companies with proper warranties and repair services.' },
-                    feature3: { title: '24/7 Customer Service', desc: 'Our team is always ready to answer all your questions and solve your problems.' }
-                },
                 contact: { 
                     heading: 'Contact Us', 
                     description: 'If you have any questions, feedback, or would like to request further information, please feel free to contact us! 📞📩', 
@@ -324,23 +365,9 @@
             zh: {
                 lang: { flag: 'https://flagcdn.com/w40/cn.png' },
                 pageTitle: {
-                    index: 'SP E-STORE - 主页',
-                    products: 'SP E-STORE - 产品',
-                    cart: 'SP E-STORE - 购物车',
                     contact: 'SP E-STORE - 联系'
                 },
                 nav: { home: '主页', products: '产品', contact: '联系', cart: '购物车', theme: '主题', language: '语言' },
-                hero: {
-                    title: '欢迎来到 SP E-STORE',
-                    subtitle: '领先的现代电子商店，提供最好的质量和价值。',
-                    button: '立即选购'
-                },
-                about: {
-                    title: '关于 SP E-STORE',
-                    feature1: { title: '快速交货', desc: '全国范围内的及时送货服务。 在最短的时间内收到您的物品。' },
-                    feature2: { title: '质量保证', desc: '100% 正品公司产品，提供适当的保修和维修服务。' },
-                    feature3: { title: '24/7 客户服务', desc: '我们的团队随时准备回答您的所有问题并解决您的问题。' }
-                },
                 contact: { 
                     heading: '联系我们', 
                     description: '如果您有任何问题、反馈或想索取更多信息，请随时与我们联系！ 📞📩', 
@@ -359,7 +386,7 @@
         };
 
         let currentLang = localStorage.getItem('language') || 'km';
-        const pageKey = document.body.dataset.pageKey || 'index';
+        const pageKey = 'contact';
 
         function getTranslation(key, lang = currentLang) {
             const nestedKey = key.split('.');
@@ -375,21 +402,18 @@
             localStorage.setItem('language', lang);
             document.documentElement.lang = lang;
             
-            // Update all text content
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 const text = getTranslation(key, lang);
                 
                 if (text) {
                     const icon = el.querySelector('i');
-                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link'))) {
+                    if (icon && (el.classList.contains('nav-link') || el.classList.contains('mobile-nav-link') || el.classList.contains('bottom-nav-link'))) {
                          const textNode = el.querySelector('span');
                         if (textNode) {
                             textNode.textContent = text;
-                        } else {
-                            el.innerHTML = icon.outerHTML + " " + text;
                         }
-                    } else if (el.id === 'cart-count') {
+                    } else if (el.id === 'cart-count' || el.id === 'cart-count-bottom') {
                         // Don't change cart count
                     } else {
                         el.innerHTML = text;
@@ -397,22 +421,18 @@
                 }
             });
 
-            // Update placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const text = getTranslation(el.dataset.i18nPlaceholder, lang);
                 if (text) el.placeholder = text;
             });
 
-            // Update page title
             const title = getTranslation(`pageTitle.${pageKey}`, lang);
-            if(title) document.title = title;
+            if(title && title !== `pageTitle.${pageKey}`) document.title = title;
             
-            // Update language switcher
             updateLanguageSwitcher();
             
-            // Close dropdowns
             const langDropdownMenu = document.getElementById('lang-dropdown-menu');
-            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+            const langDropdownMenuMobile = document.getElementById('mobile-header-lang-menu');
             if(langDropdownMenu) langDropdownMenu.classList.add('hidden');
             if(langDropdownMenuMobile) langDropdownMenuMobile.classList.add('hidden');
         }
@@ -421,84 +441,77 @@
             const currentLangData = translations[currentLang];
             if (!currentLangData) return;
 
-            // Update toggle button flags
             const langToggleFlag = document.getElementById('lang-toggle-flag');
-            const langToggleFlagMobile = document.getElementById('lang-toggle-flag-mobile');
+            const mobileHeaderLangFlag = document.getElementById('mobile-header-lang-flag');
+            
             if(langToggleFlag) langToggleFlag.src = currentLangData.lang.flag;
-            if(langToggleFlagMobile) langToggleFlagMobile.src = currentLangData.lang.flag;
+            if(mobileHeaderLangFlag) mobileHeaderLangFlag.src = currentLangData.lang.flag;
 
-            // Update mobile toggle button text
-            const mobileLangText = document.querySelector('#lang-toggle-button-mobile span');
-            if (mobileLangText) {
-                mobileLangText.textContent = currentLangData.nav.language;
-            }
-
-            // Show/hide items in dropdowns
             document.querySelectorAll('.lang-dropdown-item').forEach(btn => {
                 if (btn.dataset.lang === currentLang) {
-                    btn.classList.add('hidden'); // Hide selected language
+                    btn.classList.add('hidden'); 
                 } else {
                     btn.classList.remove('hidden');
                 }
             });
         }
 
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
         function updateCartCount() {
             const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartCountElement = document.getElementById('cart-count');
+            const cartCountBottomElement = document.getElementById('cart-count-bottom');
+
+            const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
+            
             if (cartCountElement) {
-                const totalQuantity = storedCart.reduce((total, item) => total + item.quantity, 0);
                 cartCountElement.textContent = totalQuantity;
+            }
+            
+             if (cartCountBottomElement) { 
+                cartCountBottomElement.textContent = totalQuantity;
+                if (totalQuantity > 0) {
+                    cartCountBottomElement.classList.remove('hidden');
+                } else {
+                    cartCountBottomElement.classList.add('hidden');
+                }
             }
         }
         
         function setTheme(theme) {
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
             const htmlEl = document.documentElement;
-            const mobileIcon = themeToggleMobile.querySelector('i');
             
             if (theme === 'light') {
                 htmlEl.classList.add('light');
                 localStorage.setItem('theme', 'light');
-                if(themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
-                if (mobileIcon) mobileIcon.className = 'fas fa-moon w-8 text-center';
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-moon text-xl md:text-2xl"></i>';
             } else {
                 htmlEl.classList.remove('light');
                 localStorage.setItem('theme', 'dark');
-                if(themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
-                if (mobileIcon) mobileIcon.className = 'fas fa-sun w-8 text-center';
+                if(themeToggleFab) themeToggleFab.innerHTML = '<i class="fas fa-sun text-xl md:text-2xl"></i>';
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Shared Listeners ---
-            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
-            document.getElementById('close-mobile-menu').addEventListener('click', toggleMobileMenu);
-            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', toggleMobileMenu));
-            
             // Language Dropdown Listeners
             const langToggleButton = document.getElementById('lang-toggle-button');
             const langDropdownMenu = document.getElementById('lang-dropdown-menu');
-            const langToggleButtonMobile = document.getElementById('lang-toggle-button-mobile');
-            const langDropdownMenuMobile = document.getElementById('lang-dropdown-menu-mobile');
+            
+            const mobileHeaderLangBtn = document.getElementById('mobile-header-lang-btn');
+            const mobileHeaderLangMenu = document.getElementById('mobile-header-lang-menu');
 
             if(langToggleButton) {
                 langToggleButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     langDropdownMenu.classList.toggle('hidden');
+                    if(mobileHeaderLangMenu) mobileHeaderLangMenu.classList.add('hidden');
                 });
             }
-            if(langToggleButtonMobile) {
-                langToggleButtonMobile.addEventListener('click', (e) => {
+            if(mobileHeaderLangBtn) {
+                mobileHeaderLangBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    langDropdownMenuMobile.classList.toggle('hidden');
+                    mobileHeaderLangMenu.classList.toggle('hidden');
+                    if(langDropdownMenu) langDropdownMenu.classList.add('hidden');
                 });
             }
 
@@ -513,30 +526,22 @@
                 if (langToggleButton && langDropdownMenu && !langToggleButton.contains(e.target) && !langDropdownMenu.contains(e.target)) {
                     langDropdownMenu.classList.add('hidden');
                 }
-                if (langToggleButtonMobile && langDropdownMenuMobile && !langToggleButtonMobile.contains(e.target) && !langDropdownMenuMobile.contains(e.target)) {
-                    langDropdownMenuMobile.classList.add('hidden');
+                if (mobileHeaderLangBtn && mobileHeaderLangMenu && !mobileHeaderLangBtn.contains(e.target) && !mobileHeaderLangMenu.contains(e.target)) {
+                    mobileHeaderLangMenu.classList.add('hidden');
                 }
             });
 
-            // Theme Toggle Logic
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            // Theme Toggle FAB Logic
+            const themeToggleFab = document.getElementById('theme-toggle-fab');
             
-            if(themeToggle) {
-                themeToggle.addEventListener('click', () => {
+            if(themeToggleFab) {
+                themeToggleFab.addEventListener('click', () => {
                     const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
                     setTheme(newTheme);
-                });
-            }
-            if(themeToggleMobile) {
-                themeToggleMobile.addEventListener('click', () => {
-                    const newTheme = document.documentElement.classList.contains('light') ? 'dark' : 'light';
-                    setTheme(newTheme);
-                    // Don't close mobile menu
                 });
             }
 
-            // --- Page-Specific Logic (from original contact.html) ---
+            // Page-Specific Logic
             const contactForm = document.getElementById('contact-form');
             if(contactForm) {
                  contactForm.addEventListener('submit', function(event) {
@@ -570,13 +575,12 @@
                 }
             });
             
-            // --- Initial Load ---
-            const currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
+            // Initial Load
+            const currentTheme = localStorage.getItem('theme') || 'light'; 
             setTheme(currentTheme);
             setLanguage(currentLang);
             updateCartCount();
         });
-        // --- END OF SHARED SCRIPT ---
     </script>
 </body>
 </html>
